@@ -9,11 +9,11 @@ const Navbar = () => {
             </div>
             <div className='flex flex-col'>
                 <h1 className='font-bold text-2xl text-white'>Advocates Self Care Team - Uttar Pradesh</h1>
-                <p className='text-[#F4CE14] mt-[5px]'>आज का सहयोग कल का सहारा</p>
+                <p className='text-[#32a1e6] mt-[5px]'>आज का सहयोग कल का सहारा</p>
             </div>
             <div className='flex flex-col'>
               <p className='font-bold text-2xl text-white'>HelpLine No.- 7007357961 एवं 7007074437</p>
-              <p className='text-[#F4CE14] mt-[5px] '>पंजीकरण संख्या :- BAS/05985/2023-24</p>
+              <p className='text-[#32a1e6] mt-[5px] '>पंजीकरण संख्या :- BAS/05985/2023-24</p>
             </div>
         </header>
     </div>
