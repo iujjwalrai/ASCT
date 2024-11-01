@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Navbar from './Components/Navbar'
 const App = () => {
   return (
-    <div>Advocate Self Care Team</div>
+    <div>
+      <Navbar/>
+    </div>
   )
 }
 
