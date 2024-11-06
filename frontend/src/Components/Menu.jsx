@@ -10,8 +10,8 @@ const Menu = () => {
             <Link to = "/about">
                 <li className='h-[100%] font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center transition duration-500'>About Us</li>
             </Link>
-            <Link to = "/teachersList">
-                <li className='h-[100%] font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center transition duration-500'>Teacher's List</li>
+            <Link to = "/advocatesList">
+                <li className='h-[100%] font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center transition duration-500'>Advocates List</li>
             </Link>
             <Link to = "/sahyogList">
                 <li className='h-[100%] font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center transition duration-500'>Sahyog List</li>
