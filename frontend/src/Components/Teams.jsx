@@ -26,8 +26,8 @@ const Teams = () => {
                     {tobeDisplayed.map((obj, index) => (
                         <div className="team-member" key={index}>
                             <img src={obj.img} alt={obj.name}/>
-                            <h2>{obj.name}</h2>
-                            <p>{obj.desg}</p>
+                            <h2 className='mt-4 text-lg font-semibold bg-blue-500 rounded-xl inline-block py-1 px-2'>Ad. {obj.name}</h2><br></br>
+                            <p className='text-base font-semibold inline-block bg-orange-500 mt-2 py-1 px-2 rounded-2xl'>{obj.desg}</p>
                         </div>
                     ))}
                 </div>

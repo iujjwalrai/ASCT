@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div>
         <Hero/>
-        <div>
+        <div className='py-4'>
             <p className='w-[90vw] mx-auto font-bold pt-6'>
                 <p className='text-center w-[100%] text-2xl'>Welcome to Advocates Self Care Team - Uttar Pradesh. </p>
                <p className='text-center w-[100%] mb-8 text-2xl mt-6'>ASCT: Advocates Self Care Team उत्तर प्रदेश की वेबसाइट पर आपका स्वागत है। </p>
