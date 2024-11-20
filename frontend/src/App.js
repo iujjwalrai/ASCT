@@ -11,6 +11,11 @@ import Niyamawali from './pages/Niyamawali'
 import Contact from './pages/Contact'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Dashboard from './pages/Dashboard'
+import DashboardComp from './Components/DashboardComp'
+import Profile from './Components/Profile'
+import ProtectedRouteAd from './pages/ProtectedRouteAd'
+import IdCard from './Components/IdCard'
 const App = () => {
   return (
     <div className='overflow-hidden'>
@@ -26,6 +31,11 @@ const App = () => {
         <Route path='/contact' element={<Contact/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/register' element={<Register/>}></Route>
+        <Route path='/advocates/dashboard' element={<ProtectedRouteAd><Dashboard/></ProtectedRouteAd>}>
+          <Route index element={<DashboardComp/>}></Route>
+          <Route path='profile' element={<Profile/>}></Route>
+          <Route path='idcard' element={<IdCard/>}/>
+        </Route>
         <Route path='*' element={<div className='text-4xl text-blue-950 font-bold h-[60vh] text-center'>Error 404 - Page Not Found</div>}/>
       </Routes>
     </div>
