@@ -49,14 +49,18 @@ const Sidebar = () => {
                     Id Card
                 </div>
             </Link>
-            <div className='flex gap-7'>
-                <FaEye className='text-white text-3xl'/>
-                Running Sahyog List
-            </div>
-            <div className='flex gap-7'>
-                <CiSearch className='text-white text-3xl'/>
-                View All Sahyog List
-            </div>
+            <Link to = "runningSahyog">
+                <div className='flex gap-7'>
+                    <FaEye className='text-white text-3xl'/>
+                    Running Sahyog List
+                </div>
+            </Link>
+            <Link to= "allSahyog">
+                <div className='flex gap-7'>
+                    <CiSearch className='text-white text-3xl'/>
+                    View All Sahyog List
+                </div>
+            </Link>
             <div className='flex gap-7'>
                 <CiSearch className='text-white text-3xl'/>
                 View All Vwayastha Shulk

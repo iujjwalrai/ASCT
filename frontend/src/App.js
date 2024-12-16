@@ -16,6 +16,8 @@ import DashboardComp from './Components/DashboardComp'
 import Profile from './Components/Profile'
 import ProtectedRouteAd from './pages/ProtectedRouteAd'
 import IdCard from './Components/IdCard'
+import RunningSahyogList from './Components/RunningSahyogList'
+import AllSahyog from './Components/AllSahyog'
 const App = () => {
   return (
     <div className='overflow-hidden'>
@@ -35,6 +37,8 @@ const App = () => {
           <Route index element={<DashboardComp/>}></Route>
           <Route path='profile' element={<Profile/>}></Route>
           <Route path='idcard' element={<IdCard/>}/>
+          <Route path='runningSahyog' element={<RunningSahyogList/>}/>
+          <Route path='allSahyog' element={<AllSahyog/>}/>
         </Route>
         <Route path='*' element={<div className='text-4xl text-blue-950 font-bold h-[60vh] text-center'>Error 404 - Page Not Found</div>}/>
       </Routes>

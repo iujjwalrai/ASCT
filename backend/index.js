@@ -17,12 +17,14 @@ const registerRoute = require("./routes/register");
 const userRoute = require("./routes/user");
 const adminRoute = require("./routes/admin")
 const advocatesListRoute = require("./routes/advocatesList");
+const paymentRoute = require("./routes/payment");
 dbConnect();
 app.use("/api/v1/contact", contactUsRoute);
 app.use("/api/v1/registerPortal", registerRoute);
 app.use("/api/v1/LoginPortal", userRoute);
 app.use("/api/v1/advocatesList", advocatesListRoute);
 app.use("/api/v1/adminPortal", adminRoute);
+app.use("/api/v1/paymentPortal", paymentRoute);
 app.get("/", (req,res)=>{
     res.status(200).json({
         message: "Welcome to the ASCT-UP API"
