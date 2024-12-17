@@ -97,44 +97,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-    SahyogList: [{
-        sahyog: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "SahyogList"
-        },
-        transactionId: {
-            type: String,
-            required: true
-        },
-        amount: {
-            type: String,
-            required: true
-        },
-        date: {
-            type: Date,
-            default: Date.now
-        }
-    },],
-    VywasthaList: [
-        {
-            vyawastha: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "VyawasthaList"
-            },
-            transactionId: {
-                type: String,
-                required: true
-            },
-            amount: {
-                type: String,
-                required: true
-            },
-            date: {
-                type: Date,
-                default: Date.now
-            }
-        }
-    ],
     token: {
         type: String
     }

@@ -28,7 +28,7 @@ exports.adminLogin = async (req, res)=>{
         }
 
         try{
-            const check = bcrypt.compare(password, admin.password);
+            const check = await bcrypt.compare(password, admin.password);
             if(!check){
                 return res.status(403).json({
                     success: false,

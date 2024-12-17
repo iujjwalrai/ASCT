@@ -23,7 +23,7 @@ exports.createSahyog = async(req, res)=>{
         console.log(error);
         return res.status(500).json({
             success: true,
-            message: "Sahyog cannot be created! Internl server error"
+            message: "Sahyog cannot be created! Internal server error"
         })
     }
 }

@@ -18,7 +18,12 @@ import ProtectedRouteAd from './pages/ProtectedRouteAd'
 import IdCard from './Components/IdCard'
 import RunningSahyogList from './Components/RunningSahyogList'
 import AllSahyog from './Components/AllSahyog'
+import AdminLogin from './pages/AdminLogin'
+import ProtectedRouteAdmin from './pages/ProtectedRouteAdmin'
+import DashboardAdmin from './pages/DashboardAdmin'
 const App = () => {
+
+
   return (
     <div className='overflow-hidden'>
       <Navbar/>
@@ -33,6 +38,8 @@ const App = () => {
         <Route path='/contact' element={<Contact/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/register' element={<Register/>}></Route>
+        <Route path='/adminLogin' element={<AdminLogin/>}></Route>
+        <Route path='/admin/dashboard' element={<ProtectedRouteAdmin><DashboardAdmin/></ProtectedRouteAdmin>}></Route>
         <Route path='/advocates/dashboard' element={<ProtectedRouteAd><Dashboard/></ProtectedRouteAd>}>
           <Route index element={<DashboardComp/>}></Route>
           <Route path='profile' element={<Profile/>}></Route>

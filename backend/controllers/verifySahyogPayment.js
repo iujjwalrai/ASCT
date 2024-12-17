@@ -1,6 +1,7 @@
 const crypto = require("crypto")
 const User = require('../models/User');
 const SahyogList = require('../models/SahyogList');
+const Donation = require("../models/Donation");
 require("dotenv").config();
 exports.verifySahyogPayment = async (req, res) => {
   const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
@@ -35,25 +36,21 @@ exports.verifySahyogPayment = async (req, res) => {
       return res.status(404).json({ success: false, message: "Sahyog not found" });
     }
 
-    // 4. Update SahyogList and User
-    // Add the transaction to the user's SahyogList
-    user.SahyogList.push({
-      sahyog: sahyog._id,
+    const newDonation = await Donation.create({
+      user: userId,
+      sahyog: sahyogId,
       transactionId: razorpay_payment_id,
-      amount: amount,
+      amount: amount
     });
-    await user.save();
 
-    // Update SahyogList: Increase amountCollected and add donated user
-
-    sahyog.donatedUsers.push(user._id);
-    await sahyog.save();
+    console.log("Donation created: ", newDonation);
 
     // 5. Return success response
     return res.status(200).json({
       success: true,
       message: "Payment verified and donation recorded successfully",
-      user
+      user,
+      transactionId: razorpay_payment_id
     });
 
   } catch (error) {

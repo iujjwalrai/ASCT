@@ -20,7 +20,7 @@ const Footer = () => {
                 <ul className='list-disc space-y-4'>
                     <li><Link to='/gallery'>GALLERY</Link></li>
                     <li><Link to='/blog'>BLOG</Link></li>
-                    <li><Link to='distLogin'>DISTRICT LEVEL LOGIN</Link></li>
+                    <li><Link to='/adminLogin'>ADMIN LOGIN</Link></li>
                     <li><Link to='/advocatesList'>ADVOCATES LIST</Link></li>
                 </ul>
             </div>
