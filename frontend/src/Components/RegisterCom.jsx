@@ -1,7 +1,7 @@
 import React from 'react'
 import backgroundImage from '../assets/images/logniImage2.jpg';
 import {useForm} from "react-hook-form"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import {upDistrictsAndTehsils} from '../assets/upDistrictsAndTeshils'
 import toast from 'react-hot-toast';
@@ -9,6 +9,7 @@ import axios from 'axios';
 
 const districts = Object.keys(upDistrictsAndTehsils);
 const RegisterCom = () => {
+  const navigate = useNavigate();
   const[selectedDistrict, setSelectedDistrict] = useState("");
   const[teshsils, setTehsils] = useState([])
 
@@ -37,7 +38,20 @@ const RegisterCom = () => {
       });
       reset();
       setSelectedDistrict("")
-      console.log(responseFromServer)
+      console.log(responseFromServer);
+      navigate("/login");
+      toast.success('You are successfully registered on ASCT. Kindly login with your credentials', {
+        style: {
+          border: '1px solid #713200',
+          padding: '16px',
+          color: '#713200',
+        },
+        iconTheme: {
+          primary: '#713200',
+          secondary: '#FFFAEE',
+        },
+      });
+
     }
     catch(er){
       console.log(er)
@@ -92,12 +106,13 @@ const RegisterCom = () => {
             {errors.email && <span className='text-red-600 font-bold py-3 px-3'>{errors.email.message}</span>}
 
 
-            <input type='date' placeholder='Enter your DOB' id="dob"  value="2024-12-31" className='bg-white bg-opacity-20 rounded-xl w-[30%] py-2 px-8 placeholder:text-white border-white border'{...register("DOB",{required: "DOB is a required field"})}></input>
+            <input type='date' placeholder='Enter your DOB' id="dob" className='bg-white bg-opacity-20 rounded-xl w-[30%] py-2 px-8 placeholder:text-white border-white border'{...register("DOB",{required: "DOB is a required field"})}></input>
 
             {errors.DOB && <span className='text-red-600 font-bold py-3 px-3'>{errors.DOB.message}</span>}
           </div>
           <div className='flex justify-between mt-12'>
             <select className='bg-white text-white bg-opacity-20 rounded-xl w-[30%] py-2 px-8 placeholder:text-white border-white border' {...register("Gender", {required: "Gender is a required field"})}>
+            <option className='text-black' value="">---Choose Your Gender---</option>
               <option className='text-black' value="Male">Male</option>
               <option className='text-black' value="Female">Female</option>
               <option className='text-black' value="Other">Other</option>
@@ -106,6 +121,7 @@ const RegisterCom = () => {
             {errors.Gender && <span className='text-red-600 font-bold py-3 px-3'>{errors.Gender.message}</span>}
 
             <select className='bg-white text-white bg-opacity-20 rounded-xl w-[30%] py-2 px-8 placeholder:text-white border-white border' {...register("AdPractice", {required: "This is a required field"})}>
+              <option className='text-black' value="">---Choose Your Practice Level---</option>
               <option className='text-black' value="Uchh Nyayalay">Uchh Nyayalay</option>
               <option className='text-black' value="Jila Nyayalay">Jila Nyayalay</option>
               <option className='text-black' value="Tehsil Nyayalay">Tehsil Nyayalay</option>
@@ -135,6 +151,7 @@ const RegisterCom = () => {
 
             {errors.Tehsil && <span className='text-red-600 font-bold py-3 px-3'>{errors.Tehsil.message}</span>}
             <select className='bg-white text-white bg-opacity-20 rounded-xl w-[30%] py-2 px-8 placeholder:text-white border-white border' {...register("BloodGroup")}>
+              <option className='text-black' value="">---Choose Your Blood Group---</option>
               <option className='text-black' value="A+">A+</option>
               <option className='text-black' value="A-">A-</option>
               <option className='text-black' value="B+">B+</option>
@@ -143,7 +160,7 @@ const RegisterCom = () => {
               <option className='text-black' value="O-">O-</option>
             </select>
             <select className='bg-white text-white bg-opacity-20 rounded-xl w-[30%] py-2 px-8 border-white border' {...register("HomeDistrict", {required: "This is a required field"})}>
-              <option className='text-black' value="">---Choose Your District---</option>
+              <option className='text-black' value="">---Choose Your Home District---</option>
               {
                 districts.map((district)=>{
                   return (<option className='text-black' value={district}>{district}</option>)

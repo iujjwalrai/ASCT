@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import Cookies from "js-cookie"
+import Footer from '../Components/Footer'
 const AdminLogin = () => {
 
 
@@ -48,6 +49,7 @@ const AdminLogin = () => {
                 <button type='submit' className='bg-blue-500 h-10 rounded-xl text-white  hover:bg-blue-800 duration-300' required>Login</button>
             </form>
         </div>
+        <Footer/>
     </div>
   )
 }

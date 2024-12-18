@@ -61,18 +61,24 @@ const Sidebar = () => {
                     View All Sahyog List
                 </div>
             </Link>
-            <div className='flex gap-7'>
-                <CiSearch className='text-white text-3xl'/>
-                View All Vwayastha Shulk
-            </div>
-            <div className='flex gap-7'>
-                <FaLock className='text-white text-3xl'/>
-                Update Pasword
-            </div>
-            <div className='flex gap-7'>
-                <TfiWrite className='text-white text-3xl'/>
-                Self Declaration
-            </div>
+            <Link to="allVyawastha">
+                <div className='flex gap-7'>
+                    <CiSearch className='text-white text-3xl'/>
+                    View All Vwayastha Shulk
+                </div>
+            </Link>
+            <Link to="updatePass">
+                <div className='flex gap-7'>
+                    <FaLock className='text-white text-3xl'/>
+                    Update Pasword
+                </div>
+            </Link>
+            <Link to="selfDeclaration">
+                <div className='flex gap-7'>
+                    <TfiWrite className='text-white text-3xl'/>
+                    Self Declaration
+                </div>
+            </Link>
         </div>
         <div className='w-[90%] h-[15vh] bg-gradient-to-tl from-blue-300 via-purple-300 to-white mt-12 rounded-2xl flex px-8 gap-7 items-center text-black text-xl font-bold cursor-pointer' onClick={LogoutHandler}>
             <IoLogOut className='text-black text-3xl'/>

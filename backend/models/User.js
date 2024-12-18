@@ -97,6 +97,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: null
     },
+    selfDeclaration: {
+        type: Boolean,
+        default: false
+    },
     token: {
         type: String
     }

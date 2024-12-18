@@ -52,7 +52,7 @@ const Contact = () => {
 
 
               <textarea placeholder='Enter your message' className='bg-blue-100 py-2 rounded-2xl px-6 w-[100%] h-[6rem] mt-4' {...register('message', {required: "Please enter your message"})}></textarea>
-              <button type="submit" className='bg-green-500 py-3 px-4 w-[100%] mt-6 rounded-md hover:rounded-3xl duration-100 hover:border-green-900 hover:border-4 text-black font-bold'>Send the Message</button>
+              <button type="submit" className='bg-green-500 py-3 px-4 w-[100%] mt-6 rounded-md hover:rounded-3xl duration-300 hover:border-green-900 hover:border-4 text-black font-bold'>Send the Message</button>
             </form>
           </div>
           <div className='w-[40%]'>

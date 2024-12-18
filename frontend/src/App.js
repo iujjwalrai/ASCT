@@ -21,6 +21,9 @@ import AllSahyog from './Components/AllSahyog'
 import AdminLogin from './pages/AdminLogin'
 import ProtectedRouteAdmin from './pages/ProtectedRouteAdmin'
 import DashboardAdmin from './pages/DashboardAdmin'
+import AllVyawastha from './Components/AllVyawastha'
+import UpdatePass from './Components/UpdatePass'
+import SelfDeclaration from './Components/SelfDeclaration'
 const App = () => {
 
 
@@ -46,6 +49,9 @@ const App = () => {
           <Route path='idcard' element={<IdCard/>}/>
           <Route path='runningSahyog' element={<RunningSahyogList/>}/>
           <Route path='allSahyog' element={<AllSahyog/>}/>
+          <Route path='allVyawastha' element={<AllVyawastha/>}/>
+          <Route path='updatePass' element={<UpdatePass/>}/>
+          <Route path='selfDeclaration' element={<SelfDeclaration/>}/>
         </Route>
         <Route path='*' element={<div className='text-4xl text-blue-950 font-bold h-[60vh] text-center'>Error 404 - Page Not Found</div>}/>
       </Routes>

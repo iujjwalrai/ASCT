@@ -7,7 +7,7 @@ const razorInstance = new razor({
     key_secret: process.env.RAZOR_KEY_SECRET
 });
 
-exports.sahyogPayment = async (req, res)=>{
+exports.payment_asct = async (req, res)=>{
     const options = {
         amount: req.body.amount * 100,
         currency: "INR",

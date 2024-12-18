@@ -12,7 +12,9 @@ root.render(
     <Provider store={store}>
         <BrowserRouter>
             <App/>
-            <Toaster/>
+            <Toaster toastOptions={{
+              duration: 10000, 
+        }}/>
         </BrowserRouter>
     </Provider>
 );

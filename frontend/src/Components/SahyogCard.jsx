@@ -35,6 +35,9 @@ const SahyogCard = ({ sahyog }) => {
     fetchDonationStatus();
   }, [advo._id, _id]);
 
+  console.log(advo.email);
+  console.log(advo.mobile)
+
   const handleSahyogPayment = async () => {
     if (!window.Razorpay) {
       console.error("Razorpay is not loaded!");
@@ -42,7 +45,7 @@ const SahyogCard = ({ sahyog }) => {
     }
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/paymentPortal/paymentCapture/sahyog`,
+        `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/paymentPortal/paymentCapture/asct`,
         JSON.stringify({ amount: Number(amount)}), {
           headers: {
             "Content-Type": 'application/json',
@@ -97,9 +100,9 @@ const SahyogCard = ({ sahyog }) => {
           }
         },
         prefill: {
-          name: "Test User",
-          email: "test@example.com",
-          contact: "9999999999",
+          name: advo.name,
+          email: advo.email,
+          contact: advo.mobile,
         },
       };
   

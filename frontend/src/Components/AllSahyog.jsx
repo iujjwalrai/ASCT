@@ -42,7 +42,7 @@ const AllSahyog = () => {
     <div className='flex bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-2'>
       <Sidebar/>
       <div className='mt-5'>
-        <div className='grid grid-cols-3 gap-x-3'>
+        <div className='grid grid-cols-3 gap-x-3 gap-y-3'>
           {
             sahyogs.map((sahyog)=>{
               return <SahyogCard sahyog={sahyog}/>
