@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: 'https://asct-frontend.onrender.com/', 
+    origin: 'https://asct-frontend.onrender.com', 
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,               // Allows credentials (cookies)
   }));
@@ -31,7 +31,14 @@ app.get("/", (req,res)=>{
         message: "Welcome to the ASCT-UP API"
     })
 });
-
+app.use((err, req, res, next) => {
+    console.error('Error:', err);
+    res.status(500).json({
+        success: false,
+        message: "Internal server error",
+        error: err.message
+    });
+});
 app.listen(PORT, ()=>{
     console.log(`Server is running at Port no. ${PORT}`)
 });
