@@ -5,7 +5,8 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: 'https://asct-frontend.onrender.com/', // Your frontend's origin
+    origin: 'https://asct-frontend.onrender.com/', 
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,               // Allows credentials (cookies)
   }));
   
