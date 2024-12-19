@@ -9,7 +9,9 @@ const AdvocatesList = () => {
   const[filteredAd, setFilteredAd] = useState([]);
   async function getAdvocatesList() {
     try{
-      const response = await toast.promise(axios.get(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/advocatesList/getAdvocatesList`), {
+      const response = await toast.promise(axios.get(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/advocatesList/getAdvocatesList`, {
+        withCredentials: true
+      }), {
         loading: "Fetching the data from the server",
         success: <b>Fetched Advocates List successfully</b>,
         error: <b>Could not fetch the data. Please try again</b>
