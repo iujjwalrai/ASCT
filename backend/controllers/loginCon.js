@@ -41,7 +41,9 @@ exports.loginCon = async (req, res)=>{
 
                 const options = {
                     expires : new Date(Date.now() + 2 * 60 * 60 * 1000),
-                    httpOnly: false,
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: 'none'
                 }
                 res.cookie("token", token, options).status(200).json({
                     success: true,
