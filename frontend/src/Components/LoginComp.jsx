@@ -27,7 +27,8 @@ const LoginComp = () => {
         error : <b>Error in logging you in</b>
       });
 
-      if(Cookies.get("token")){
+      if(responseFromServer.data.success){
+        Cookies.set('token', 'true', { path: '/' });
         const res = dispatch(login())
         reset();
         navigate("/advocates/dashboard");
