@@ -37,43 +37,43 @@ const Sidebar = () => {
                     Dashboard
                 </div>
             </Link>
-            <Link to = 'profile'>
+            <Link to = '/advocates/dashboard/profile'>
                 <div className='flex gap-7'>
                     <CgProfile className='text-white text-3xl'/>
                     Profile
                 </div>
             </Link>
-            <Link to= 'idcard'>
+            <Link to= '/advocates/dashboard/idcard'>
                 <div className='flex gap-7'>
                     <IoIdCard className='text-white text-3xl'/>
                     Id Card
                 </div>
             </Link>
-            <Link to = "runningSahyog">
+            <Link to = "/advocates/dashboard/runningSahyog">
                 <div className='flex gap-7'>
                     <FaEye className='text-white text-3xl'/>
                     Running Sahyog List
                 </div>
             </Link>
-            <Link to= "allSahyog">
+            <Link to= "/advocates/dashboard/allSahyog">
                 <div className='flex gap-7'>
                     <CiSearch className='text-white text-3xl'/>
                     View All Sahyog List
                 </div>
             </Link>
-            <Link to="allVyawastha">
+            <Link to="/advocates/dashboard/allVyawastha">
                 <div className='flex gap-7'>
                     <CiSearch className='text-white text-3xl'/>
                     View All Vwayastha Shulk
                 </div>
             </Link>
-            <Link to="updatePass">
+            <Link to="/advocates/dashboard/updatePass">
                 <div className='flex gap-7'>
                     <FaLock className='text-white text-3xl'/>
                     Update Pasword
                 </div>
             </Link>
-            <Link to="selfDeclaration">
+            <Link to="/advocates/dashboard/selfDeclaration">
                 <div className='flex gap-7'>
                     <TfiWrite className='text-white text-3xl'/>
                     Self Declaration
