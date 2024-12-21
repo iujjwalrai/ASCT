@@ -17,7 +17,7 @@ const DashboardComp = () => {
   }); 
 
   return (
-    <div className='flex bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-16'>
+    <div className='flex bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-16 relative'>
         <Sidebar/>
         <div className='mt-16 w-[70vw] max-w-[90vw] bg-blue-100 h-[70vh] shadow-2xl shadow-black rounded-3xl px-16 py-8'>
             <div className='flex justify-between'>

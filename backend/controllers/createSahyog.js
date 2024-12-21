@@ -2,7 +2,7 @@ const SahyogList = require("../models/SahyogList");
 
 exports.createSahyog = async(req, res)=>{
     try{
-        const {name, user, description, endDate, amount, isCompleted} = req.body;
+        const {name, user, description, amount, isCompleted, nomineeAccount1No, nomineeAccount1ifsc, nomineeAccount2No, nomineeAccount2ifsc, nomineeName} = req.body;
         if(!name ||  !user || !description ||  !amount){
             return res.status(401).json({
                 success: false,
@@ -10,7 +10,7 @@ exports.createSahyog = async(req, res)=>{
             })
         }
 
-        const createdSahyog = await  SahyogList.create({name, user, description, endDate, amount, isCompleted});
+        const createdSahyog = await  SahyogList.create({name, user, description, amount, isCompleted, nomineeAccount1No, nomineeAccount1ifsc, nomineeAccount2No, nomineeAccount2ifsc, nomineeName});
 
         return res.status(200).json({
             sucess: true,

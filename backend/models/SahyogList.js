@@ -16,10 +16,27 @@ const SahyogListSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    endDate: {
-        type: Date
-    },
     amount: {
+        type: String,
+        required: true
+    },
+    nomineeName: {
+        type: String,
+        required: true
+    },
+    nomineeAccount1No: {
+        type: String,
+        required: true
+    },
+    nomineeAccount1ifsc: {
+        type: String,
+        required: true
+    },
+    nomineeAccount2No: {
+        type: String,
+        required: true
+    },
+    nomineeAccount2ifsc: {
         type: String,
         required: true
     },
@@ -30,11 +47,7 @@ const SahyogListSchema = new mongoose.Schema({
     isCompleted: {
         type: Boolean,
         default: false
-    },
-    donatedUsers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    }]
+    }
 },{timestamps: true})
 
 

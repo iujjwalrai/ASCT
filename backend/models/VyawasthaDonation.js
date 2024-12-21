@@ -1,18 +1,14 @@
 const mongoose = require("mongoose");
 
-const DonationSchema = new mongoose.Schema({
+const VyawasthaDonationSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    sahyog: {
+    vyawastha: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "SahyogList",
         default: null
-    },
-    vyawastha: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "VyawasthaList"
     },
     amount: {
         type: Number,
@@ -24,4 +20,4 @@ const DonationSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 
-module.exports = mongoose.model("Donation", DonationSchema);
+module.exports = mongoose.model("VyawasthaDonation", VyawasthaDonationSchema);

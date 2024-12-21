@@ -4,12 +4,20 @@ const cookieParser = require("cookie-parser");
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+const fileUpload = require("express-fileupload");
 app.use(cors({
     origin: 'http://localhost:3000', 
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,               // Allows credentials (cookies)
-  }));
-  
+}));
+
+app.use(
+    fileUpload({
+      useTempFiles: true, // Enable temporary file storage
+      tempFileDir: "/tmp/", // Directory for temporary files
+    })
+);
+
 require("dotenv").config();
 const PORT = process.env.PORT || 5000
 const contactUsRoute = require("./routes/contactUs");

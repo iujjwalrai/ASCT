@@ -1,9 +1,9 @@
-const Donation = require("../models/Donation");
+const SahyogDonation = require("../models/SahyogDonation");
 exports.checkSahyogDonation = async(req, res)=>{
     try{
         const {userId, sahyogId} = req.query;
 
-        const donation = await Donation.findOne({user: userId, sahyog:sahyogId});
+        const donation = await SahyogDonation.findOne({user: userId, sahyog:sahyogId});
 
         return res.status(200).json({
             donated: !!donation,

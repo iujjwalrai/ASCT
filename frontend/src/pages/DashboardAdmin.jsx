@@ -96,6 +96,11 @@ const DashboardAdmin = () => {
           <input type='text' placeholder='Enter the name of the Sahyog' {...sahyogForm.register('name')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
           <input type='text' placeholder='Enter the description of the Sahyog' {...sahyogForm.register('description')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
           <input type='text' placeholder='Enter the amount of the Sahyog to be collected' {...sahyogForm.register('amount')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
+          <input type='text' placeholder='Enter the nominee Account Holder name' {...sahyogForm.register('nomineeName')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
+          <input type='text' placeholder='Enter the Account no. 1 of the nominee' {...sahyogForm.register('nomineeAccount1No')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
+          <input type='text' placeholder='Enter the Account 1 IFSC of the nominee' {...sahyogForm.register('nomineeAccount1ifsc')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
+          <input type='text' placeholder='Enter the Account no. 2 of the nominee' {...sahyogForm.register('nomineeAccount2No')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
+          <input type='text' placeholder='Enter the Account 2 IFSC of the nominee' {...sahyogForm.register('nomineeAccount2ifsc')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
           <button type='submit' className='bg-blue-600 py-3 text-white rounded-xl hover:bg-blue-900 duration-300'>Create Sahyog</button>
         </form>
       </div>

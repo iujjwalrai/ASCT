@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const User = require("../models/User");
 const VyawasthaList = require("../models/VyawasthaList");
-const Donation = require("../models/Donation");
+const VyawasthaDonation = require("../models/VyawasthaDonation");
 require("dotenv").config();
 
 exports.verifyVyawasthaPayment = async(req, res)=>{
@@ -33,7 +33,7 @@ exports.verifyVyawasthaPayment = async(req, res)=>{
             return res.status(404).json({ success: false, message: "Vyawastha not found" });
         }
 
-        const newDonation = await Donation.create({
+        const newDonation = await VyawasthaDonation.create({
               user: userId,
               vyawastha: vyawasthaId,
               transactionId: razorpay_payment_id,

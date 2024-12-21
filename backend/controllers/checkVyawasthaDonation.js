@@ -1,10 +1,10 @@
-const Donation = require("../models/Donation");
+const VyawasthaDonation = require("../models/VyawasthaDonation");
 
 exports.checkVyawasthaDonation = async(req, res)=>{
     try{
         const {userId, vyawasthaId} = req.query
 
-        const donation = await Donation.findOne({user: userId, vyawastha: vyawasthaId});
+        const donation = await VyawasthaDonation.findOne({user: userId, vyawastha: vyawasthaId});
 
         return res.status(200).json({
             donated: !!donation,

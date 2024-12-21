@@ -13,6 +13,7 @@ const {checkVyawasthaDonation} = require("../controllers/checkVyawasthaDonation"
 const {allVyawastha} = require("../controllers/allVyawastha");
 const {updatePassword} = require("../controllers/updatePassword");
 const {selfDeclaration} = require("../controllers/selfDeclaration");
+const {uploadSahyogPayment} = require("../controllers/uploadSahyogPayment");
 router.post("/login", loginCon);
 
 router.get("/advocate/my-profile", auth, profileShow);
@@ -31,4 +32,5 @@ router.put("/advocate/updatePass", auth, updatePassword);
 
 router.put("/advocate/selfDeclaration", auth, selfDeclaration);
 
+router.post("/advocate/uploadSahyogPayment", auth, uploadSahyogPayment);
 module.exports = router;

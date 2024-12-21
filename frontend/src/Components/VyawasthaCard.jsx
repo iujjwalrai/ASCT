@@ -113,7 +113,7 @@ const VyawasthaCard = ({vyawastha}) => {
         {isCompleted ? `Donation is now over` : `Donation is in progress`}
       </h1>
       {donationStatus.paid ? (
-        <div className='text-green-600 font-semibold'>
+        <div className='text-green-600 font-semibold text-2xl'>
           You have already donated.
           <div className='text-gray-600 text-sm'>Transaction ID: {donationStatus.transactionId}</div>
         </div>

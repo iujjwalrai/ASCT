@@ -12,9 +12,6 @@ const VyawasthaListSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    endDate: {
-        type: Date
-    },
     amount: {
         type: String,
         required: true
@@ -26,11 +23,7 @@ const VyawasthaListSchema = new mongoose.Schema({
     isCompleted: {
         type: Boolean,
         default: false
-    },
-    donatedUsers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    }]
+    }
 },{timestamps: true})
 
 
