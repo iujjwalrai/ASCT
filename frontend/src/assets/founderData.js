@@ -10,6 +10,11 @@ export const founders = [
         img: 'https://res.cloudinary.com/dkvuuyi2k/image/upload/v1730804714/IndraBahadur_gota7w.jpg'
     },
     {
+        name: 'Jai Prakash Rai',
+        desg: 'Vice President',
+        img: 'https://res.cloudinary.com/dkvuuyi2k/image/upload/v1734755220/MrJaiPrakashRai_prkckb.jpg'
+    },
+    {
         name: 'Chandra Prakash Verma',
         desg: 'Vice President',
         img: 'https://res.cloudinary.com/dkvuuyi2k/image/upload/v1730804713/ChandraPrakashVerma_gajjvx.jpg'
