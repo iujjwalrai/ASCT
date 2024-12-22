@@ -53,7 +53,7 @@ const Sidebar = () => {
 
       {/* Sidebar / Navbar */}
       <div
-        className={`md:flex flex-col md:w-[20%] bg-gradient-to-t from-blue-900 to-purple-800 text-white h-full py-4 rounded-3xl mx-3 my-3 md:h-full absolute md:static transition-transform duration-300 ${
+        className={`md:flex flex-col md:w-[20%] bg-gradient-to-t from-blue-900 to-purple-800 text-white h-full py-4 rounded-3xl md:mx-3 my-12 md:h-full absolute md:static transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } md:translate-x-0 z-40`}
       >

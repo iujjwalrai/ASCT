@@ -6,7 +6,7 @@ app.use(express.json());
 app.use(cookieParser());
 const fileUpload = require("express-fileupload");
 app.use(cors({
-    origin: 'http://localhost:3000', 
+    origin: 'https://asct-backend.onrender.com', 
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,               // Allows credentials (cookies)
 }));
