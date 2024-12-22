@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
+import { useSelector } from 'react-redux';
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   return (
     <div className="border-t-2 border-t-blue-500">
       {/* Hamburger Icon */}
       <div className="md:hidden flex justify-center p-4 bg-black">
-        <GiHamburgerMenu 
+        <GiHamburgerMenu
           onClick={() => setIsOpen(!isOpen)}
           className="text-white text-xl cursor-pointer"
         />
@@ -57,16 +59,26 @@ const Menu = () => {
               Contact
             </li>
           </Link>
-          <Link to="/login">
-            <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
-              Login
-            </li>
-          </Link>
-          <Link to="/register">
-            <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
-              Register
-            </li>
-          </Link>
+          {!isAuthenticated ? (
+            <>
+              <Link to="/login">
+                <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
+                  Login
+                </li>
+              </Link>
+              <Link to="/register">
+                <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
+                  Register
+                </li>
+              </Link>
+            </>
+          ) : (
+            <Link to="/advocates/dashboard">
+              <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
+                Dashboard
+              </li>
+            </Link>
+          )}
         </ul>
       </div>
     </div>

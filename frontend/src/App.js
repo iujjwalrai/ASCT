@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from './Components/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import Menu from './Components/Menu'
@@ -24,9 +24,29 @@ import DashboardAdmin from './pages/DashboardAdmin'
 import AllVyawastha from './Components/AllVyawastha'
 import UpdatePass from './Components/UpdatePass'
 import SelfDeclaration from './Components/SelfDeclaration'
+import { useDispatch, useSelector  } from 'react-redux'
+import { verifyAuth, scheduleAutoLogout } from "./redux/slices/authSlice";
+import { logout } from './redux/slices/authSlice';
 const App = () => {
 
+  const dispatch = useDispatch();
+  const { isAuthenticated, loginTime } = useSelector((state) => state.auth);
+  useEffect(() => {
+    dispatch(verifyAuth()); // Check session on app load
 
+    if (isAuthenticated && loginTime) {
+      const timeElapsed = Date.now() - loginTime;
+
+      if (timeElapsed < 2 * 60 * 60 * 1000) {
+        // Schedule remaining logout time
+        setTimeout(() => {
+          dispatch(scheduleAutoLogout());
+        }, 2 * 60 * 60 * 1000 - timeElapsed);
+      } else {
+        dispatch(logout());
+      }
+    }
+  }, [dispatch, isAuthenticated, loginTime]);
   return (
     <div className='overflow-hidden'>
       <Navbar/>

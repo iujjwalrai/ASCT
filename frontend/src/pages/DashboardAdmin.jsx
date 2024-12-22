@@ -28,7 +28,8 @@ const DashboardAdmin = () => {
 
   const sahyogForm = useForm();
   const vyawasthaForm= useForm();
-
+  const vyawasthaComp = useForm();
+  const sahyogComp = useForm();
   const sahyogHandler = async(data)=>{
     try{
       console.log(data);
@@ -70,6 +71,45 @@ const DashboardAdmin = () => {
     }
   }
 
+  const handleSahyogComp = async(data)=>{
+    try{
+      const vapas = await toast.promise(axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/sahyogComp`, data, {
+        headers:{
+          "Content-Type": "application/json"
+        },
+        withCredentials: true
+      }), {
+        loading: "Marking as complete",
+        success: <b>Marked as complete</b>,
+        error: <b>Some error occurred</b>
+      })
+    }
+    catch(gal){
+      console.error(gal);
+      toast.error("Please try again later");
+    }
+  }
+
+  const handleVyawasthaComp = async(data)=>{
+    try{
+      const vapas = await toast.promise(axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/vyawasthaComp`, data, {
+        headers:{
+          "Content-Type": "application/json"
+        },
+        withCredentials: true
+      }), {
+        loading: "Marking as complete",
+        success: <b>Marked as complete</b>,
+        error: <b>Some error occurred</b>
+      })
+    }
+    catch(gal){
+      console.error(gal);
+      toast.error("Please try again later");
+    }
+  }
+
+
   const logoutHandler = async()=>{
     Cookies.remove("adminToken");
     navigate("/");
@@ -107,10 +147,24 @@ const DashboardAdmin = () => {
       <h2 className='text-blue-600 text-xl my-3 font-semibold text-center'>To add a new Vyawastha Shulk</h2>
       <div className='flex justify-center'>
         <form onSubmit={vyawasthaForm.handleSubmit(vyawasthaHandler)} className='min-w-[700px] flex flex-col py-10 px-10 bg-black bg-opacity-25 gap-6 rounded-3xl'>
-          <input type='text' placeholder='Enter the name of the Sahyog' {...vyawasthaForm.register('name')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <input type='text' placeholder='Enter the description of the Sahyog' {...vyawasthaForm.register('description')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <input type='text' placeholder='Enter the amount of the Sahyog to be collected' {...vyawasthaForm.register('amount')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
+          <input type='text' placeholder='Enter the name of the Vyawastha' {...vyawasthaForm.register('name')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
+          <input type='text' placeholder='Enter the description of the Vyawastha' {...vyawasthaForm.register('description')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
+          <input type='text' placeholder='Enter the amount of the Vyawastha to be collected' {...vyawasthaForm.register('amount')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
           <button type='submit' className='bg-blue-600 py-3 text-white rounded-xl hover:bg-blue-900 duration-300'>Create Vyawastha</button>
+        </form>
+      </div>
+      <h2 className='text-blue-600 text-xl my-3 font-semibold text-center'>To mark a Sahyog as completed</h2>
+      <div className='flex justify-center'>
+        <form onSubmit={sahyogComp.handleSubmit(handleSahyogComp)} className='min-w-[700px] flex flex-col py-10 px-10 bg-black bg-opacity-25 gap-6 rounded-3xl'>
+          <input type='text' placeholder='Enter the Object Id of the Sahyog' {...sahyogComp.register('id')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
+          <button type='submit' className='bg-blue-600 py-3 text-white rounded-xl hover:bg-blue-900 duration-300'>Mark as Completed</button>
+        </form>
+      </div>
+      <h2 className='text-blue-600 text-xl my-3 font-semibold text-center'>To mark a Vyawastha as completed</h2>
+      <div className='flex justify-center'>
+        <form onSubmit={vyawasthaComp.handleSubmit(handleVyawasthaComp)} className='min-w-[700px] flex flex-col py-10 px-10 bg-black bg-opacity-25 gap-6 rounded-3xl'>
+          <input type='text' placeholder='Enter the Object Id of the Vyawastha' {...vyawasthaComp.register('id')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
+          <button type='submit' className='bg-blue-600 py-3 text-white rounded-xl hover:bg-blue-900 duration-300'>Mark as Completed</button>
         </form>
       </div>
     </div>

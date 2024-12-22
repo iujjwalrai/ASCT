@@ -14,15 +14,29 @@ import {removeUser} from "../redux/slices/userSlice"
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import axios from 'axios';
 const Sidebar = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const LogoutHandler = async()=>{
-        dispatch(logout());
-        dispatch(removeUser());
-        navigate("/");
-        toast.success("Logged Out Successfully");
+        try {
+            await axios.post(
+                `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/LoginPortal/advocate/logout`,
+                null,
+                { withCredentials: true }
+            );
+            dispatch(logout());
+            dispatch(removeUser());
+            toast.success("Logged Out Successfully");
+            navigate("/");
+        } catch (error) {
+            dispatch(logout());
+            dispatch(removeUser());
+            navigate("/");
+            toast.success("Logged Out Successfully");
+            console.error("Error during logout:", error);
+        }
     }
 
   return (

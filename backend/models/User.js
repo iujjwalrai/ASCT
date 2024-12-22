@@ -101,8 +101,13 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    token: {
-        type: String
+    OTP: {
+        type: String,
+        default: null
+    },
+    OTPExpiresAt: {
+        type: Date,
+        default: null
     }
 }, {timestamps: true})
 

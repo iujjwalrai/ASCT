@@ -1,23 +1,55 @@
 import {createSlice } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
-
+import axios from "axios";
+let logoutTimer;
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        isAuthenticated : !!Cookies.get("token"),
+        isAuthenticated : false,
+        loginTime: null,
     },
     reducers: {
-        login: (state, action)=>{
-            state.isAuthenticated = true
+        setAuth: (state, action)=>{
+            state.isAuthenticated = action.payload.isAuthenticated;
+            state.loginTime = action.payload.loginTime || null;
         },
         logout: (state, action)=>{
             state.isAuthenticated = false;
-            Cookies.remove("token");
+            state.loginTime = null;
+            if (logoutTimer) clearTimeout(logoutTimer);
         }
     },
     
 });
 
-export const {login, logout} = authSlice.actions;
+export const {setAuth, logout} = authSlice.actions;
+
+export const verifyAuth = ()=> async(dispatch)=>{
+    try{
+        const response = await axios.get(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/LoginPortal/advocate/verifyCookie`, {withCredentials: true});
+
+        if(response.data.success){
+            dispatch(
+                setAuth({
+                  isAuthenticated: true,
+                  loginTime: Date.now(),
+                })
+              );
+        } else{
+            dispatch(logout());
+        }
+    }
+    catch(error){
+        dispatch(logout()); 
+    }
+}
+
+export const scheduleAutoLogout = () => (dispatch) => {
+    if (logoutTimer) clearTimeout(logoutTimer);
+  
+    logoutTimer = setTimeout(() => {
+      dispatch(logout());
+      alert("Session expired. You have been logged out.");
+    }, 2 * 60 * 60 * 1000); 
+};
 
 export default authSlice.reducer;
