@@ -23,13 +23,13 @@ const Sidebar = () => {
 
   const LogoutHandler = async () => {
     try {
+      dispatch(logout());
+      dispatch(removeUser());
       await axios.post(
         `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/LoginPortal/advocate/logout`,
         null,
         { withCredentials: true }
       );
-      dispatch(logout());
-      dispatch(removeUser());
       toast.success("Logged Out Successfully");
       navigate("/");
     } catch (error) {
