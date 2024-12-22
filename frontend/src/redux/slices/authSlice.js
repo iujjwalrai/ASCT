@@ -36,12 +36,10 @@ export const verifyAuth = ()=> async(dispatch)=>{
               );
         } else{
             dispatch(logout());
-            window.location.href = '/login';
         }
     }
     catch(error){
         dispatch(logout()); 
-        window.location.href = '/login';
     }
 }
 
