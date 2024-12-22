@@ -44,10 +44,10 @@ const AllVyawastha = () => {
   }
 
   return (
-    <div className='flex bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-2'>
+    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-6 relative min-h-screen">
       <Sidebar/>
       <div className='mt-5'>
-        <div className='grid grid-cols-3 gap-x-3'>
+        <div className='grid md:grid-cols-3 grid-cols-1 gap-x-3 gap-y-3'>
           {
             vyawasthas.map((vyawastha)=>{
               return <VyawasthaCard vyawastha={vyawastha}/>

@@ -75,9 +75,9 @@ const Profile = () => {
         }
     }
   return (
-    <div className='flex bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-2'>
+    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-6 relative min-h-screen">
         <Sidebar/>
-        <div className='mt-16 w-[75vw] bg-blue-100 min-h-[850px] shadow-2xl shadow-black rounded-3xl px-10 py-8'>
+        <div className="mt-16 w-full md:w-[70vw] max-w-[90vw] bg-blue-100  shadow-2xl shadow-black rounded-3xl px-16 py-8 mx-auto">
             <h1 className='text-2xl font-semibold'>Welcome {user.name}!! Your details are as follows </h1>
             <h2 className='mt-5 text-2xl text-red-600 text-center font-bold'>Basic Details</h2>
             <div className='mt-8 flex justify-between text-lg text-blue-950 font-semibold'>

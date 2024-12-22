@@ -105,7 +105,7 @@ const SahyogCard = ({ sahyog }) => {
   };
 
   return (
-    <div className="bg-white bg-opacity-55 px-8 py-5 rounded-lg w-[450px]">
+    <div className="bg-white bg-opacity-55 px-8 py-5 rounded-lg md:w-[450px] w-[80%] mx-auto">
       <h1 className="text-red-800 text-3xl font-bold">{user.name}</h1>
       <h1 className="text-blue-800 text-xl font-semibold mt-1">
         Reg No: {user.RegNo}
