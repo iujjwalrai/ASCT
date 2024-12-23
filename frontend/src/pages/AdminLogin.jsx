@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import Cookies from "js-cookie"
 import Footer from '../Components/Footer'
 const AdminLogin = () => {
 
@@ -23,7 +22,7 @@ const AdminLogin = () => {
                 success: <b>Successfully Logged You In</b>,
                 error: <b>Error in Logging you in</b>
             });
-            if(Cookies.get("adminToken")){
+            if(response.data.success){
                 reset();
                 navigate("/admin/dashboard");
             }

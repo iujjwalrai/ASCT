@@ -14,9 +14,9 @@ const DashboardComp = () => {
   });
 
   return (
-    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-6 relative min-h-screen">
+    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-6 relative min-h-screen md:items-start">
       <Sidebar />
-      <div className="mt-16 w-full md:w-[70vw] max-w-[90vw] bg-blue-100 h-[70vh] shadow-2xl shadow-black rounded-3xl px-16 py-8 mx-auto">
+      <div className="mt-16 w-full md:w-[70vw] max-w-[95vw] bg-blue-100 shadow-2xl shadow-black rounded-3xl px-16 py-8 mx-auto">
         <div className="flex md:flex-row flex-col md:justify-between gap-8">
           <div className='md:order-1 order-2'>
             <h1 className="text-3xl font-semibold">Dashboard</h1>

@@ -6,23 +6,23 @@ import { verifyAuth } from '../redux/slices/authSlice';
 const ProtectedRouteAd = ({ children }) => {
     const dispatch = useDispatch();
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    const [loading, setLoading] = useState(true); // Track verification status
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
         const checkAuth = async () => {
-            await dispatch(verifyAuth()); // Verify session from backend
-            setLoading(false); // Stop loading after verification
+            await dispatch(verifyAuth()); 
+            setLoading(false); 
         };
 
         if (!isAuthenticated) {
             checkAuth();
         } else {
-            setLoading(false); // No need to verify if already authenticated
+            setLoading(false); 
         }
     }, [dispatch, isAuthenticated]);
 
     if (loading) {
-        return <div>Loading...</div>; // Show a loading state during verification
+        return <div>Loading...</div>; 
     }
 
     return isAuthenticated ? children : <Navigate to="/login" replace />;

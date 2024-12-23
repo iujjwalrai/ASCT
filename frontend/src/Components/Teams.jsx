@@ -27,14 +27,14 @@ const Teams = () => {
                 className='nav-icon prev-icon' 
             />
 
-            <div className="slider-container">
+            <div className="slider-container md:w-[800px] w-[90%]">
                 <div 
                     className="slider-track" 
                     style={{ transform: `translateX(-${(currentIndex * 2) / 3}%)` }}
                 >
                     {tobeDisplayed.map((obj, index) => (
                         <div className="team-member" key={index}>
-                            <img src={obj.img} alt={obj.name} className="member-img"/>
+                            <img src={obj.img} alt={obj.name} className="member-img]"/>
                             <h2 className='member-name'>Ad. {obj.name}</h2>
                             <p className='member-desg'>{obj.desg}</p>
                         </div>

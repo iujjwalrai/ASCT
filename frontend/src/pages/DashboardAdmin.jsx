@@ -111,7 +111,15 @@ const DashboardAdmin = () => {
 
 
   const logoutHandler = async()=>{
-    Cookies.remove("adminToken");
+    try{
+      const vap = await axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/logout`, null, {withCredentials: true});
+      navigate("/");
+      toast.success("Logged out successfully");
+    }
+    catch(e){
+      navigate("/");
+      toast.success("Logged out successfully");
+    }
     navigate("/");
     toast.success("Logged out successfully")
   }

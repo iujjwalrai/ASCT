@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { setUser } from '../redux/slices/userSlice'
+import { IoMdCloseCircle } from "react-icons/io";
 const Profile = () => {
     const user = useSelector((state)=> state.user.userDetails);
     const dispatch = useDispatch();
@@ -75,45 +76,45 @@ const Profile = () => {
         }
     }
   return (
-    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-6 relative min-h-screen">
+    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-6 relative min-h-screen md:items-start">
         <Sidebar/>
-        <div className="mt-16 w-full md:w-[70vw] max-w-[90vw] bg-blue-100  shadow-2xl shadow-black rounded-3xl px-16 py-8 mx-auto">
+        <div className="mt-16 w-full md:w-[70vw] max-w-[95vw] bg-blue-100 shadow-2xl shadow-black rounded-3xl px-16 py-8 mx-auto">
             <h1 className='text-2xl font-semibold'>Welcome {user.name}!! Your details are as follows </h1>
             <h2 className='mt-5 text-2xl text-red-600 text-center font-bold'>Basic Details</h2>
-            <div className='mt-8 flex justify-between text-lg text-blue-950 font-semibold'>
+            <div className='mt-8 flex md:flex-row flex-col gap-y-1 md:justify-between text-lg text-blue-950 font-semibold'>
                 <p className='border-2 border-red-700 min-w-[40%] text-center'>Name: {user.name}</p>
                 <p className='border-2 border-red-700 min-w-[20%] text-center'>Reg No: {user.RegNo}</p>
                 <p className='border-2 border-red-700 min-w-[30%] text-center'>Email: {user.email}</p>
             </div>
-            <div className='mt-2 flex justify-between text-lg text-blue-950 font-semibold'>
+            <div className='mt-8 flex md:flex-row flex-col gap-y-1 md:justify-between text-lg text-blue-950 font-semibold'>
                 <p className='border-2 border-red-700 min-w-[20%] text-center'>Gender: {user.Gender}</p>
                 <p className='border-2 border-red-700 min-w-[40%] text-center'>DOB: {user.DOB}</p>
                 <p className='border-2 border-red-700 min-w-[30%] text-center'>Mobile: {user.mobile}</p>
             </div>
-            <div className='mt-2 flex justify-between text-lg text-blue-950 font-semibold'>
+            <div className='mt-8 flex md:flex-row flex-col gap-y-1 md:justify-between text-lg text-blue-950 font-semibold'>
                 <p className='border-2 border-red-700 min-w-[15%] text-center'>COPNo: {user.COPNo}</p>
                 <p className='border-2 border-red-700 min-w-[20%] text-center'>COP No Year: {user.COPNoYear}</p>
                 <p className='border-2 border-red-700 min-w-[20%] text-center'>Reg No Year: {user.RegNoYear}</p>
             </div>
             <h2 className='mt-5 text-2xl text-red-600 text-center font-bold'>Practice Details</h2>
-            <div className='mt-5 flex justify-between text-lg text-blue-950 font-semibold'>
+            <div className='mt-5 flex md:flex-row flex-col gap-y-1 md:justify-between text-lg text-blue-950 font-semibold'>
                 <p className='border-2 border-red-700 min-w-[35%] text-center '>Practice district: {user.Jila}</p>
                 <p className='border-2 border-red-700 min-w-[25%] text-center'>Teshil: {user.Tehsil}</p>
                 <p className='border-2 border-red-700 min-w-[35%] text-center'>Practice Level: {user.AdPractice}</p>
             </div>
             <h2 className='mt-5 text-2xl text-red-600 text-center font-bold'>Other Details</h2>
-            <div className='mt-5 flex justify-between text-lg text-blue-950 font-semibold'>
+            <div className='mt-5 flex md:flex-row flex-col gap-y-1 md:justify-between text-lg text-blue-950 font-semibold'>
                 <p className='border-2 border-red-700 min-w-[20%] text-center'>Blood Group: {user.BloodGroup}</p>
                 <p className='border-2 border-red-700 min-w-[35%] text-center'>Home District: {user.HomeDistrict}</p>
             </div>
             <div className='mt-5 flex justify-between text-lg text-blue-950 font-semibold'><p className='border-2 border-red-700 min-w-[100%] text-center'>Home Address: {user.HomeAddress}</p></div>
             <h2 className='mt-5 text-2xl text-red-600 text-center font-bold'>Nominee Details</h2>
-            <div className='mt-5 flex justify-between text-lg text-blue-950 font-semibold'>
+            <div className='mt-5 flex md:flex-row flex-col gap-y-1 md:justify-between text-lg text-blue-950 font-semibold'>
                 <p>First Nominee Name: {user.firstNomineeName}</p>
                 <p>First Nominee Relation: {user.firstNomineeRelation}</p>
                 <p>First Nominee Mobile: {user.firstNomineeMobile}</p>
             </div>
-            <div className='mt-2 flex justify-between text-lg text-blue-950 font-semibold'>
+            <div className='mt-2 flex md:flex-row flex-col gap-y-1 md:justify-between text-lg text-blue-950 font-semibold'>
                 <p>Second Nominee Name: {user.secondNomineeName}</p>
                 <p>Second Nominee Relation: {user.secondNomineeRelation}</p>
                 <p>Second Nominee Mobile: {user.secondNomineeMobile}</p>
@@ -125,9 +126,10 @@ const Profile = () => {
             isPopUpOpen &&(
                 <div className='overlay fixed top-0 right-0 bottom-0 left-0 backdrop-blur-lg flex justify-center items-center z-10' onClick={closePopUp}>
                     <div className='content w-[85%] max-w-[90%] h-[95vh] py-12 px-12 rounded-3xl bg-white shadow-2xl shadow-black z-20 relative overflow-y-auto' onClick={(e) => e.stopPropagation()}>
+                        <IoMdCloseCircle className='absolute top-0 right-1 text-5xl cursor-pointer  text-red-600' onClick={closePopUp}/>
                         <h1 className='text-center text-red-600 text-xl font-semibold'>Edit your Profile Details</h1>
                         <form onSubmit={handleSubmit(submitHandler)}>
-                            <div className='flex justify-between mt-3'>
+                            <div className='flex md:flex-row flex-col gap-y-3 md:justify-between mt-3'>
                                 <div>
                                     <label htmlFor='name' className='block text-red-600 font-bold'>Name *</label>
                                     <input type='text' value={user.name} disabled id='name' className='bg-gray-400 px-4 py-2 rounded-xl mt-2'></input>
@@ -145,7 +147,7 @@ const Profile = () => {
                                     <input type='text' value={user.mobile} disabled id='mob' className='bg-gray-400 px-4 py-2 rounded-xl mt-2'></input>
                                 </div>
                             </div>
-                            <div className='flex justify-between mt-3'>
+                            <div className='flex md:flex-row flex-col gap-y-3 md:justify-between mt-3'>
                                 <div>
                                     <label htmlFor='email' className='block text-red-600 font-bold'>Email *</label>
                                     <input type='text' id='email' className='bg-gray-200 px-4 py-2 rounded-xl mt-2' {...register("email")}></input>
@@ -179,7 +181,7 @@ const Profile = () => {
                             
                                 </div>
                             </div>
-                            <div className='flex justify-between mt-3'>
+                            <div className='flex md:flex-row flex-col gap-y-3 md:justify-between mt-3'>
                                 <div>
                                     <label htmlFor='dis' className='block text-red-600 font-bold'>District *</label>
                                     <select className='bg-gray-200 px-4 py-2 rounded-xl mt-2' id="dis" value={selectedDistrict} onChange={handleDistrictChange}>
@@ -217,7 +219,7 @@ const Profile = () => {
                                     <input type="text" placeholder='Enter the home address' className='w-[95%] bg-gray-200 px-4 py-2 rounded-xl mt-2' id="ha" {...register("HomeAddress")}></input>
                                 </div>
                             </div>
-                            <div className='flex justify-between mt-3'>
+                            <div className='flex md:flex-row flex-col gap-y-3 md:justify-between mt-3'>
                                 <div>
                                     <label htmlFor='nname1' className='block text-red-600 font-bold'>Nominee 1</label>
                                     <input type='text' className='bg-gray-200 px-4 py-2 rounded-xl mt-2' disabled={user.firstNomineeName} id='nname1' {...register("firstNomineeName")}></input>
@@ -231,7 +233,7 @@ const Profile = () => {
                                     <input type='text' className='bg-gray-200 px-4 py-2 rounded-xl mt-2' disabled={user.firstNomineeMobile} id='nmobile1' {...register("firstNomineeMobile")}></input>
                                 </div>
                             </div>
-                            <div className='flex justify-between mt-3'>
+                            <div className='flex md:flex-row flex-col gap-y-3 md:justify-between mt-3'>
                                 <div>
                                     <label htmlFor='nname2' className='block text-red-600 font-bold'>Nominee 2</label>
                                     <input type='text' className='bg-gray-200 px-4 py-2 rounded-xl mt-2' disabled={user.secondNomineeName} id='nname2' {...register("secondNomineeName")}></input>

@@ -75,3 +75,45 @@
 
 
 
+
+/* Floating label effect */
+/* Floating label effect */
+.floating-label-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .floating-label-container input {
+    display: block;
+    width: 100%;
+    padding: 1rem 0.75rem 0.25rem; /* Ensure enough padding for the label */
+    border-radius: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid white;
+    font-size: 1rem;
+    color: white;
+    outline: none;
+  }
+  
+  .floating-label-container label {
+    position: absolute;
+    left: 1rem;
+    top: 50%; /* Adjusted to vertically center the label */
+    transform: translateY(-50%); /* Ensure label is vertically centered */
+    font-size: 1rem;
+    color: white;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .floating-label-container input:focus + label,
+  .floating-label-container input:not(:placeholder-shown) + label {
+    top: -0.5rem;
+    left: 1rem;
+    font-size: 0.75rem;
+    color: white; /* Blue color */
+  }
+  
+  
+
+

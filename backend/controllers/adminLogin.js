@@ -43,7 +43,10 @@ exports.adminLogin = async (req, res)=>{
 
                 const options = {
                     expires : new Date(Date.now() + 2 * 60 * 60 * 1000),
-                    httpOnly: false,
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: 'none',
+                    path: '/'
                 }
 
                 res.cookie("adminToken", token, options).status(200).json({

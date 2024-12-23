@@ -34,8 +34,10 @@ const RunningSahyogList = () => {
     return (
       <div className='flex bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-2'>
         <Sidebar/>
-        <div>
-          No Sahyogs to display
+        <div className='mt-5'>
+          <div className='bg-white h-[50vh] rounded-3xl mx-auto py-12 text-red-600 text-3xl font-bold text-center md:w-[700px] w-[95%]'>
+            No Sahyogs to Display
+          </div>
         </div>
       </div>
     )

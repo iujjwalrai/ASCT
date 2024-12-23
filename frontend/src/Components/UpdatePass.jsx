@@ -34,9 +34,9 @@ const UpdatePass = () => {
     }
 
   return (
-    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-6 relative min-h-screen">
+    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-6 relative md:items-start min-h-screen">
         <Sidebar/>
-        <div className="mt-16 w-full md:w-[70vw] max-w-[90vw] bg-blue-100 shadow-2xl shadow-black rounded-3xl md:px-16 px-3 py-8 mx-auto">
+        <div className="mt-16 w-full md:w-[70vw] max-w-[95vw] bg-blue-100 shadow-2xl shadow-black rounded-3xl md:px-16 px-3 py-8 mx-auto">
             <h1 className='text-center text-2xl text-red-600 font-bold'>Welcome to the Update Password Section</h1>
             <h2 className='text-center text-2xl text-yellow-500 font-bold mt-8'>To update the password, Please fill the below form carefully</h2>
             <div className='flex justify-center py-8'>
