@@ -31,7 +31,6 @@ export const verifyAuth = ()=> async(dispatch)=>{
             dispatch(
                 setAuth({
                   isAuthenticated: true,
-                  loginTime: Date.now(),
                 })
               );
         } else{
