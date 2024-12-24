@@ -1,16 +1,38 @@
-import React from 'react';
-
 const AdvocateList = ({ user }) => {
   const { name, RegNo, COPNo, Jila, createdAt, AdPractice, Gender } = user;
+
   return (
-    <div className="flex flex-col sm:flex-row sm:justify-between sm:gap-0 gap-y-2 sm:gap-y-0">
-      <div className="bg-blue-100 py-2 px-3 rounded-lg font-semibold text-center sm:w-[20%] w-full">{name}</div>
-      <div className="bg-blue-100 py-2 px-2 rounded-lg text-center sm:w-[7%] w-full">{RegNo}</div>
-      <div className="bg-blue-100 py-2 px-3 rounded-lg text-center sm:w-[7%] w-full">{COPNo}</div>
-      <div className="bg-blue-100 py-2 px-3 rounded-lg text-center sm:w-[15%] w-full">{Jila}</div>
-      <div className="bg-blue-100 py-2 px-3 rounded-lg text-center sm:w-[15%] w-full">{AdPractice}</div>
-      <div className="bg-blue-100 py-2 px-3 rounded-lg text-center sm:w-[7%] w-full">{Gender}</div>
-      <div className="bg-blue-100 py-2 px-2 rounded-lg text-center sm:w-[25%] w-full">{createdAt}</div>
+    <div
+      className="flex flex-col md:flex-row justify-between items-center mb-4 bg-white shadow-md p-4 rounded-xl hover:bg-blue-50"
+    >
+      <div className="text-center md:w-[20%] text-blue-900 font-medium">
+        <span className="block md:hidden font-bold">Name:</span>
+        {name || 'N/A'}
+      </div>
+      <div className="text-center md:w-[7%] text-blue-800">
+        <span className="block md:hidden font-bold">RegNo:</span>
+        {RegNo || 'N/A'}
+      </div>
+      <div className="text-center md:w-[7%] text-blue-800">
+        <span className="block md:hidden font-bold">COPNo:</span>
+        {COPNo || 'N/A'}
+      </div>
+      <div className="text-center md:w-[15%] text-blue-800">
+        <span className="block md:hidden font-bold">Jila:</span>
+        {Jila || 'N/A'}
+      </div>
+      <div className="text-center md:w-[15%] text-blue-800">
+        <span className="block md:hidden font-bold">AdPractice:</span>
+        {AdPractice || 'N/A'}
+      </div>
+      <div className="text-center md:w-[7%] text-blue-800">
+        <span className="block md:hidden font-bold">Gender:</span>
+        {Gender || 'N/A'}
+      </div>
+      <div className="text-center md:w-[25%] text-blue-800">
+        <span className="block md:hidden font-bold">Created At:</span>
+        {new Date(createdAt).toLocaleDateString() || 'N/A'}
+      </div>
     </div>
   );
 };

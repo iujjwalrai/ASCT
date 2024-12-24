@@ -23,7 +23,7 @@ const Menu = () => {
           isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
         } md:opacity-100 md:max-h-none`}
       >
-        <ul className="flex flex-col md:flex-row bg-black text-white justify-evenly items-center md:h-20">
+        <ul className="flex flex-col md:flex-row bg-black text-white justify-around px-20 items-center md:h-20">
           <Link to="/">
             <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
               Home

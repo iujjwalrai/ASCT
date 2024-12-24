@@ -62,7 +62,7 @@ const SahyogCard = ({ sahyog }) => {
     }
   };
 
-  const handleUpload = async()=>{
+  const handleUpload = async () => {
     if (!selectedFile) {
       setUploadStatus("No file selected");
       return;
@@ -79,7 +79,8 @@ const SahyogCard = ({ sahyog }) => {
     formData.append("amount", amount);
     try {
       console.log([...formData.entries()]);
-      const response = await axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/LoginPortal/advocate/uploadSahyogPayment`,
+      const response = await axios.post(
+        `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/LoginPortal/advocate/uploadSahyogPayment`,
         formData,
         {
           withCredentials: true,
@@ -94,64 +95,67 @@ const SahyogCard = ({ sahyog }) => {
 
       setUploadStatus("Upload successful!");
       console.log("Uploaded file URL:", response.data.url); // Cloudinary URL
-    }
-    catch(error){
+    } catch (error) {
       setUploadStatus("Upload failed. Please try again.");
       console.error("Error uploading file:", error);
-    }
-    finally{
+    } finally {
       setIsUploading(false);
     }
   };
 
   return (
-    <div className="bg-white bg-opacity-55 px-8 py-5 rounded-lg md:w-[450px] w-[80%] mx-auto">
-      <h1 className="text-red-800 text-3xl font-bold">{user.name}</h1>
-      <h1 className="text-blue-800 text-xl font-semibold mt-1">
+    <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md mx-auto md:mx-0">
+      <h1 className="text-red-800 text-2xl font-bold">{user.name}</h1>
+      <h1 className="text-blue-600 text-lg font-medium mt-2">
         Reg No: {user.RegNo}
       </h1>
-      <h1 className="text-orange-500 text-xl font-semibold mt-1">
+      <h1 className="text-orange-500 text-lg font-medium mt-1">
         COP No: {user.COPNo}
       </h1>
-      <h1 className="text-black text-xl font-semibold mt-1">
+      <h1 className="text-black text-lg font-semibold mt-1">
         Amount: ₹{amount}
       </h1>
-      <h1 className="text-red-950 font-bold text-xl mt-1">
-        Nominee Details is as follows:{" "}
-      </h1>
-      <h1 className="text-black text-xl font-semibold mt-1">
-        Nominee Name/Account Holder's Name: {nomineeName}
-      </h1>
-      <h1 className="text-red-600 text-xl font-semibold mt-1">
-        Account No.1 : {nomineeAccount1No}
-      </h1>
-      <h1 className="text-red-600 text-xl font-semibold mt-1">
-        Account No.1 IFSC: {nomineeAccount1ifsc}
-      </h1>
-      <h1 className="text-blue-600 text-xl font-semibold mt-1">
-        Account No.2 : {nomineeAccount2No}
-      </h1>
-      <h1 className="text-blue-600 text-xl font-semibold mt-1">
-        Account No.2 IFSC: {nomineeAccount2ifsc}
-      </h1>
-      <h1 className="text-red-800 text-2xl font-bold">
-        {isCompleted ? `Donation is now over` : `Donation is in progress`}
-      </h1>
-      {donationStatus.paid ? (
-        <div className="text-green-600 font-semibold text-2xl">
-          You have already donated.
-          <div className="text-gray-600 text-sm">
-            Transaction ID: {donationStatus.transactionId}
+      <h1 className="text-red-950 font-bold text-lg mt-2">Nominee Details:</h1>
+      <div className="mt-2">
+        <p className="text-gray-700">
+          <strong>Name:</strong> {nomineeName}
+        </p>
+        <p className="text-gray-700">
+          <strong>Account No.1:</strong> {nomineeAccount1No}
+        </p>
+        <p className="text-gray-700">
+          <strong>IFSC:</strong> {nomineeAccount1ifsc}
+        </p>
+        {nomineeAccount2No && (
+          <p className="text-gray-700">
+            <strong>Account No.2:</strong> {nomineeAccount2No}
+          </p>
+        )}
+        {nomineeAccount2ifsc && (
+          <p className="text-gray-700">
+            <strong>IFSC:</strong> {nomineeAccount2ifsc}
+          </p>
+        )}
+      </div>
+      <div className="mt-4">
+        {donationStatus.paid ? (
+          <div className="text-green-600 font-semibold text-lg">
+            You have already donated.
+            <p className="text-gray-500 text-sm">
+              Transaction ID: {donationStatus.transactionId}
+            </p>
           </div>
-        </div>
-      ) : (
-        !isCompleted && (
+        ) : isCompleted ? (
+          <div className="text-red-600 font-semibold text-lg">
+            Donation is over.
+          </div>
+        ) : (
           <div>
             <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-2"
               onClick={() => document.getElementById("file-input").click()}
             >
-              Click here to choose the receipt of the sahyog
+              Choose Receipt
             </button>
             <input
               id="file-input"
@@ -160,35 +164,35 @@ const SahyogCard = ({ sahyog }) => {
               style={{ display: "none" }}
               onChange={handleFileChange}
             />
-            <div style={{ marginTop: "10px", fontWeight: "bold" }}>
-              {uploadStatus}
-            </div>
             {selectedFile && (
               <>
-                <div style={{ width: "100px", margin: "20px auto" }}>
+                <div className="mt-3 text-sm font-medium text-gray-600">
+                  {uploadStatus}
+                </div>
+                <div className="mt-3 w-32 mx-auto">
                   <CircularProgressbar
                     value={uploadProgress}
                     text={`${uploadProgress}%`}
                     styles={buildStyles({
-                      textSize: "16px",
+                      textSize: "12px",
                       pathColor: `rgba(62, 152, 199, ${uploadProgress / 100})`,
-                      textColor: "#4d4d4d",
-                      trailColor: "#d6d6d6",
+                      textColor: "#333",
+                      trailColor: "#ddd",
                     })}
                   />
                 </div>
                 <button
+                  className="bg-red-500 text-white py-2 px-4 rounded w-full mt-3"
                   onClick={handleUpload}
-                  style={{ marginTop: "10px" }}
-                  disabled={isUploading} className="bg-red-500 w-[100%] rounded-lg text-white py-2"
+                  disabled={isUploading}
                 >
                   {isUploading ? "Uploading..." : "Upload"}
                 </button>
               </>
             )}
           </div>
-        )
-      )}
+        )}
+      </div>
     </div>
   );
 };

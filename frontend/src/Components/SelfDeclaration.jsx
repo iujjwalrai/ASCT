@@ -29,7 +29,7 @@ const SelfDeclaration = () => {
     }
   }
   return (
-    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-6 relative min-h-screen">
+    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-6 relative min-h-screen md:items-center">
         <Sidebar/>
         <div className="mt-16 w-full md:w-[70vw] max-w-[95vw] bg-blue-100 shadow-2xl shadow-black rounded-3xl md:px-16 px-3 py-8 mx-auto">
             <h1 className='text-red-600 text-2xl font-bold text-center'>Please read the below Self Declaration Form Carefully</h1>

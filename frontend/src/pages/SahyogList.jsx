@@ -38,14 +38,12 @@ const SahyogList = () => {
           <div className="text-center text-blue-900 font-semibold">Loading Sahyogs...</div>
         ) : (
           <div className="min-h-[70vh] shadow-2xl rounded-2xl w-full border-t-[4vh] border-blue-950">
-            {/* Table Headers */}
             <div className="flex justify-between px-8 py-4 bg-blue-100 rounded-t-2xl hidden md:flex">
               <div className="font-bold text-center w-[20%]">Sahyog Name</div>
               <div className="font-bold text-center w-[20%]">Sahyog For (Advocate)</div>
               <div className="font-bold text-center w-[20%]">Date Created</div>
               <div className="font-bold text-center w-[20%]">Status</div>
             </div>
-            {/* Table Rows */}
             <div className="px-8 py-6">
               {sahyogs.length > 0 ? (
                 sahyogs.map((sahyog, index) => (
@@ -58,7 +56,7 @@ const SahyogList = () => {
                       {sahyog.name || 'N/A'}
                     </div>
                     <div className="text-center md:w-[20%] text-blue-800">
-                      <span className="block md:hidden font-bold">Creator:</span>
+                      <span className="block md:hidden font-bold">Sahyog For(Advocate):</span>
                       {sahyog.user?.name || 'N/A'} (Reg No.: {sahyog.user?.RegNo || 'N/A'})
                     </div>
                     <div className="text-center md:w-[20%] text-blue-700">

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import AdvocateList from '../Components/AdvocateList';
-import axios from 'axios';
-import toast from 'react-hot-toast';
-import Footer from '../Components/Footer';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from "react";
+import AdvocateList from "../Components/AdvocateList";
+import axios from "axios";
+import toast from "react-hot-toast";
+import Footer from "../Components/Footer";
+import { useForm } from "react-hook-form";
 
 const AdvocatesList = () => {
   const [advocates, setAdvocates] = useState([]);
@@ -23,7 +23,7 @@ const AdvocatesList = () => {
           }
         ),
         {
-          loading: 'Fetching the data from the server',
+          loading: "Fetching the data from the server",
           success: <b>Fetched Advocates List successfully</b>,
           error: <b>Could not fetch the data. Please try again</b>,
         }
@@ -36,7 +36,7 @@ const AdvocatesList = () => {
         setFilteredAd(users);
         setTotalPages(totalPages);
       } else {
-        console.log('No users found');
+        console.log("No users found");
       }
     } catch (error) {
       console.log(error);
@@ -59,7 +59,9 @@ const AdvocatesList = () => {
           key={i}
           onClick={() => handlePageChange(i)}
           className={`px-4 py-2 rounded-lg ${
-            currentPage === i ? 'bg-blue-900 text-white' : 'bg-blue-100 text-blue-900'
+            currentPage === i
+              ? "bg-blue-900 text-white"
+              : "bg-blue-100 text-blue-900"
           }`}
         >
           {i}
@@ -106,20 +108,28 @@ const AdvocatesList = () => {
 
   const openPopUp = () => {
     setIsPopUpOpen(true);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   };
 
   const closePopUp = () => {
     setIsPopUpOpen(false);
-    document.body.style.overflow = 'auto'; // enable scrolling
+    document.body.style.overflow = "auto"; // enable scrolling
   };
 
   const reset = () => {
     getAdvocatesList(currentPage);
   };
 
-  const { register: register1, handleSubmit: handleSubmit1, reset: reset1 } = useForm();
-  const { register: register2, handleSubmit: handleSubmit2, reset: reset2 } = useForm();
+  const {
+    register: register1,
+    handleSubmit: handleSubmit1,
+    reset: reset1,
+  } = useForm();
+  const {
+    register: register2,
+    handleSubmit: handleSubmit2,
+    reset: reset2,
+  } = useForm();
 
   const onSubmit = async (data) => {
     const newAdvocates = advocates.filter((advocate) => {
@@ -132,7 +142,9 @@ const AdvocatesList = () => {
   const onSubmit2 = async (data) => {
     const newAdvocates = advocates.filter((advocate) => {
       if (data.jila && data.adPractice) {
-        return advocate.Jila === data.jila && advocate.AdPractice === data.adPractice;
+        return (
+          advocate.Jila === data.jila && advocate.AdPractice === data.adPractice
+        );
       } else if (data.jila && !data.adPractice) {
         return advocate.Jila === data.jila;
       } else if (!data.jila && data.adPractice) {
@@ -151,7 +163,7 @@ const AdvocatesList = () => {
       >
         <input
           placeholder="Enter COP No"
-          {...register1('COP')}
+          {...register1("COP")}
           required
           className="w-[80%] py-2 px-6 bg-blue-100 rounded-xl placeholder:text-blue-800 placeholder:font-bold border-blue-900 border-2"
         ></input>
@@ -175,46 +187,71 @@ const AdvocatesList = () => {
         Reset
       </button>
       <div className="mt-12 min-h-[70vh] shadow-2xl rounded-2xl w-[90vw] mx-auto mb-12 border-t-[4vh] border-blue-950">
-        <div className="flex sm:flex-row flex-col gap-y-3 sm:justify-between px-12 mt-5">
-          <div className="bg-blue-100 py-2 px-3 rounded-lg font-bold text-center w-full md:w-[20%]">
-            NAME
-          </div>
-          <div className="bg-blue-100 py-2 px-2 rounded-lg text-center w-full md:w-[7%] font-bold">
-            RegNo
-          </div>
-          <div className="bg-blue-100 py-2 px-3 rounded-lg text-center w-full md:w-[7%] font-bold">
-            COPNo
-          </div>
-          <div className="bg-blue-100 py-2 px-3 rounded-lg text-center w-full md:w-[15%] font-bold">
-            Jila
-          </div>
-          <div className="bg-blue-100 py-2 px-3 rounded-lg text-center w-full md:w-[15%] font-bold">
-            AdPractice
-          </div>
-          <div className="bg-blue-100 py-2 px-3 rounded-lg text-center w-full md:w-[7%] font-bold">
-            Gender
-          </div>
-          <div className="bg-blue-100 py-2 px-2 rounded-lg text-center w-full md:w-[25%] font-bold">
-            createdAt
-          </div>
+        <div className="flex justify-between px-8 py-4 bg-blue-100 rounded-t-2xl hidden md:flex">
+          <div className="font-bold text-center w-[20%]">NAME</div>
+          <div className="font-bold text-center w-[7%]">RegNo</div>
+          <div className="font-bold text-center w-[7%]">COPNo</div>
+          <div className="font-bold text-center w-[15%]">Jila</div>
+          <div className="font-bold text-center w-[15%]">AdPractice</div>
+          <div className="font-bold text-center w-[7%]">Gender</div>
+          <div className="font-bold text-center w-[25%]">createdAt</div>
         </div>
-        <div className="grid grid-rows-1 gap-y-4 py-5 px-12">
-          {filteredAd.map((user) => {
-            return <AdvocateList user={user} key={user._id} />;
-          })}
+        <div className="px-8 py-6">
+          {filteredAd.length > 0 ? (
+            filteredAd.map((user) => (
+              <div
+                key={user._id}
+                className="flex flex-col md:flex-row justify-between items-center mb-4 bg-white shadow-md p-4 rounded-xl hover:bg-blue-50"
+              >
+                <div className="text-center md:w-[20%] text-blue-900 font-medium">
+                  <span className="block md:hidden font-bold">NAME:</span>
+                  {user.name || "N/A"}
+                </div>
+                <div className="text-center md:w-[7%] text-blue-800">
+                  <span className="block md:hidden font-bold">RegNo:</span>
+                  {user.RegNo || "N/A"}
+                </div>
+                <div className="text-center md:w-[7%] text-blue-700">
+                  <span className="block md:hidden font-bold">COPNo:</span>
+                  {user.COPNo || "N/A"}
+                </div>
+                <div className="text-center md:w-[15%] text-blue-700">
+                  <span className="block md:hidden font-bold">Jila:</span>
+                  {user.Jila || "N/A"}
+                </div>
+                <div className="text-center md:w-[15%] text-blue-700">
+                  <span className="block md:hidden font-bold">AdPractice:</span>
+                  {user.AdPractice || "N/A"}
+                </div>
+                <div className="text-center md:w-[7%] text-blue-700">
+                  <span className="block md:hidden font-bold">Gender:</span>
+                  {user.Gender || "N/A"}
+                </div>
+                <div className="text-center md:w-[25%] text-blue-700">
+                  <span className="block md:hidden font-bold">CreatedAt:</span>
+                  {new Date(user.createdAt).toLocaleDateString() || "N/A"}
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="text-center text-blue-900 font-semibold">
+              No Advocates found.
+            </div>
+          )}
         </div>
       </div>
+
       {renderPagination()}
       {isPopUpOpen && (
         <div
           className={`popup-overlay fixed top-0 bottom-0 left-0 right-0 backdrop-blur-lg flex justify-center items-center z-10 transition-opacity duration-500 ease-in-out ${
-            isPopUpOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+            isPopUpOpen ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
           onClick={closePopUp}
         >
           <div
             className={`popup-content bg-white rounded-3xl py-12 px-12 shadow-2xl w-[500px] max-w-[90%] relative transition-all duration-500 ${
-              isPopUpOpen ? 'scale-100' : 'scale-0'
+              isPopUpOpen ? "scale-100" : "scale-0"
             }`}
             onClick={(e) => e.stopPropagation()}
           >
@@ -224,18 +261,18 @@ const AdvocatesList = () => {
             >
               <input
                 placeholder="Enter Jila"
-                {...register2('jila')}
+                {...register2("jila")}
                 className="py-1 px-4 bg-blue-100 rounded-xl placeholder:text-blue-900"
               ></input>
               <label
                 htmlFor="practice"
                 className="py-1 px-4 bg-blue-100 text-blue-900 rounded-xl"
               >
-                {' '}
+                {" "}
                 Select Advocate Practice Level
               </label>
               <select
-                {...register2('adPractice')}
+                {...register2("adPractice")}
                 id="practice"
                 className="border-2 border-blue-800 rounded-xl text-blue-900 px-4 py-1"
               >
