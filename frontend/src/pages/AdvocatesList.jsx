@@ -12,7 +12,6 @@ const AdvocatesList = () => {
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 10;
 
-  // Fetch advocates list with pagination
   async function getAdvocatesList(page = 1) {
     try {
       const response = await toast.promise(
@@ -36,7 +35,7 @@ const AdvocatesList = () => {
         setFilteredAd(users);
         setTotalPages(totalPages);
       } else {
-        console.log("No users found");
+        toast.error("No Users found");
       }
     } catch (error) {
       console.log(error);

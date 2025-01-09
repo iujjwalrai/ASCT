@@ -21,7 +21,7 @@ const SahyogList = () => {
       setSahyogs(response.data.sahyogs);
       setLoading(false);
     } catch (error) {
-      console.error(error);
+      toast.error(error.response.data.message);
       setLoading(false);
     }
   };

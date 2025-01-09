@@ -35,7 +35,7 @@ const AllVyawastha = () => {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-blue-500 via-purple-400 to-white min-h-screen">
+    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-blue-500 via-purple-400 to-white min-h-screen relative">
       <Sidebar />
       <div className="flex-1 p-4 md:p-8">
         {loading ? (

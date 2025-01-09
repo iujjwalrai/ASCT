@@ -24,7 +24,7 @@ const RunningSahyogList = () => {
       );
       setSahyogs(filteredSahyog);
     } catch (error) {
-      console.log(error);
+      toast.error("Some error occured")
     }
   };
 

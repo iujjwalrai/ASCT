@@ -11,23 +11,23 @@ const Contact = () => {
 
   // Form submission handler
   const onSubmit = async (data) => {
-    console.log(data);
-    console.log("Printing the response of the server .....");
-    console.log(process.env.REACT_APP_ASCT_BASE_API_URL);
-
-    const responseFromServer = await toast.promise(
-      axios.post(
-        `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/contact/contactUs`,
-        JSON.stringify(data),
-        { headers: { 'Content-Type': 'application/json' } }
-      ), {
-        loading: 'Sending your message to ASCT-UP',
-        success: <b>Message sent to ASCT-UP</b>,
-        error: <b>Could not send message to ASCT-UP</b>
-      }
-    );
-    console.log(responseFromServer);
-    reset();
+    try{
+      const responseFromServer = await toast.promise(
+        axios.post(
+          `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/contact/contactUs`,
+          JSON.stringify(data),
+          { headers: { 'Content-Type': 'application/json' } }
+        ), {
+          loading: 'Sending your message to ASCT-UP',
+          success: <b>Message sent to ASCT-UP</b>,
+          error: <b>Could not send message to ASCT-UP</b>
+        }
+      );
+      reset();
+    }
+    catch(er){
+      toast.error(er.response.data.message);
+    }
   };
 
   return (

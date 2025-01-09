@@ -10,7 +10,6 @@ const AdminLogin = () => {
     const {register, handleSubmit, reset} = useForm();
     const navigate = useNavigate();
     const submitHandler = async(data)=>{
-        console.log(data);
         try{
             const response = await toast.promise(axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/login`, JSON.stringify(data), {
                 headers: {
@@ -31,8 +30,7 @@ const AdminLogin = () => {
             }
         }
         catch(e){
-            console.error("Login error:", e);
-            toast.error("Something went wrong. Please try again.");
+            toast.error(e.response.data.message);
         }
     }
 

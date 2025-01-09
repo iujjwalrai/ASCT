@@ -24,7 +24,7 @@ const AllSahyog = () => {
 
       setSahyogs(response.data.sahyogs || []);
     } catch (error) {
-      console.error('Error fetching Sahyogs:', error);
+      toast.error("Error fetching sahyogs");
     } finally {
       setLoading(false);
     }

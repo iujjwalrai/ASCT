@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast';
-import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
 const DashboardAdmin = () => {
   const navigate = useNavigate();
@@ -16,12 +15,10 @@ const DashboardAdmin = () => {
       })
 
       const adminjankaari = responseFromServer.data.admin;
-      console.log(adminjankaari)
       setAdminData(adminjankaari);
       setLoading(false);
     }
     catch(er){
-      console.log(er)
       setLoading(false);
     }
   }
@@ -32,7 +29,6 @@ const DashboardAdmin = () => {
   const sahyogComp = useForm();
   const sahyogHandler = async(data)=>{
     try{
-      console.log(data);
       const sahyogResponse = toast.promise(axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/createSahyog`, data, {
         headers: {
           "Content-Type": 'application/json'
@@ -52,7 +48,6 @@ const DashboardAdmin = () => {
 
   const vyawasthaHandler = async(data)=>{
     try{
-      console.log(data);
       const vyawasthaResponse = toast.promise(axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/createVyawastha`, data, {
         headers: {
           "Content-Type": 'application/json'
@@ -66,7 +61,6 @@ const DashboardAdmin = () => {
       vyawasthaForm. reset();
     }
     catch(e){
-      console.log(e)
       toast.error("Something went wrong")
     }
   }
@@ -85,7 +79,6 @@ const DashboardAdmin = () => {
       })
     }
     catch(gal){
-      console.error(gal);
       toast.error("Please try again later");
     }
   }
@@ -104,7 +97,6 @@ const DashboardAdmin = () => {
       })
     }
     catch(gal){
-      console.error(gal);
       toast.error("Please try again later");
     }
   }

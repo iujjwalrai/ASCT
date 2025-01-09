@@ -22,7 +22,6 @@ const LoginComp = () => {
   const dispatch = useDispatch();
 
   const submitHandler = async (data) => {
-    console.log(data);
     try {
       const responseFromServer = await toast.promise(
         axios.post(
@@ -55,8 +54,7 @@ const LoginComp = () => {
         toast.error("Login failed. Please try again later");
       }
     } catch (error) {
-      console.error(error);
-      toast.error("An error occurred during login.");
+      toast.error(error.response.data.message);
     }
   };
 
@@ -71,7 +69,6 @@ const LoginComp = () => {
   };
 
   const forgetHandler = async (data) => {
-    console.log(data);
     try {
       const vapas = await toast.promise(
         axios.post(
@@ -124,7 +121,7 @@ const LoginComp = () => {
           </div>
         ),
         {
-          duration: Infinity, // Keeps the toast visible indefinitely
+          duration: Infinity, 
         }
       );
 
@@ -133,14 +130,12 @@ const LoginComp = () => {
         setUpdateDetails(data);
       }
     } catch (e) {
-      console.error(e);
       toast.error(e.response.data.message);
     }
   };
 
   const verifyOTPHandler = async (data) => {
     data = { ...data, ...updateDetails };
-    console.log(data);
     try {
       const huaKeeNahi = await toast.promise(
         axios.post(
@@ -163,14 +158,12 @@ const LoginComp = () => {
         setUpdateDetails({ ...data });
       }
     } catch (gal) {
-      console.error(gal);
       toast.error(gal.response.data.message);
     }
   };
 
   const updatePassHandler = async (data) => {
     data = { ...updateDetails, ...data };
-    console.log(data);
     try {
       const updte = await toast.promise(
         axios.post(
@@ -193,7 +186,6 @@ const LoginComp = () => {
         setOtpVerified(false);
       }
     } catch (galat) {
-      console.error(galat);
       toast.error(galat.response.data.message);
     }
   };

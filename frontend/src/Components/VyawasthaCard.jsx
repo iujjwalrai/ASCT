@@ -26,7 +26,7 @@ const VyawasthaCard = ({ vyawastha }) => {
         transactionId: response.data.transactionId,
       });
     } catch (error) {
-      console.error('Error checking donation status:', error);
+      toast.error("Error checking donation status")
     }
   };
 
@@ -83,14 +83,13 @@ const VyawasthaCard = ({ vyawastha }) => {
               toast.error('Payment verification failed.');
             }
           } catch (error) {
-            console.error('Error verifying payment:', error);
             toast.error('Error verifying your payment.');
           }
         },
         prefill: {
           name: advo.name,
           email: advo.email,
-          contact: advo.contact,
+          contact: advo.mobile,
         },
       };
 

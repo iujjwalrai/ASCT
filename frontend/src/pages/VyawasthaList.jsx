@@ -21,7 +21,7 @@ const VyawasthaList = () => {
       setVyawasthas(response.data.vyawasthas);
       setLoading(false);
     } catch (error) {
-      console.error(error);
+      toast.error(error.response.data.message);
       setLoading(false);
     }
   };

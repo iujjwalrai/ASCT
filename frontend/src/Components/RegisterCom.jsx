@@ -24,8 +24,6 @@ const RegisterCom = () => {
   const submitHandler = async(data)=>{
     const formData = {...data, Jila:selectedDistrict}
 
-    console.log(formData);
-
     try{
       const responseFromServer = await toast.promise(axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/registerPortal/register`, JSON.stringify(formData), {
         headers: {
@@ -38,7 +36,6 @@ const RegisterCom = () => {
       });
       reset();
       setSelectedDistrict("")
-      console.log(responseFromServer);
       navigate("/login");
       toast.success('You are successfully registered on ASCT. Kindly login with your credentials', {
         style: {
@@ -54,7 +51,7 @@ const RegisterCom = () => {
 
     }
     catch(er){
-      console.log(er)
+      toast.error(er.response.data.message);
     }
     
   }

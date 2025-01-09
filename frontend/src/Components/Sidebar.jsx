@@ -37,7 +37,6 @@ const Sidebar = () => {
       dispatch(removeUser());
       navigate("/");
       toast.success("Logged Out Successfully");
-      console.error("Error during logout:", error);
     }
   };
 

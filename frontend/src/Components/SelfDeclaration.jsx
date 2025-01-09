@@ -24,7 +24,6 @@ const SelfDeclaration = () => {
 
     }
     catch(er){
-        console.log(er);
         toast.error("Some error occured");
     }
   }

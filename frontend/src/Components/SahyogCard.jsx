@@ -4,6 +4,7 @@ import { setUser } from "../redux/slices/userSlice";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import axios from "axios";
+import toast from "react-hot-toast";
 const SahyogCard = ({ sahyog }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -38,21 +39,17 @@ const SahyogCard = ({ sahyog }) => {
           `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/LoginPortal/advocate/checkSahyog`,
           { params: { userId: advo._id, sahyogId: _id }, withCredentials: true }
         );
-        console.log(responseFromCheck);
         setDonationStatus({
           paid: responseFromCheck.data.donated,
           transactionId: responseFromCheck.data.transactionId,
         });
       } catch (e) {
-        console.error("Error checking donation status", e);
+        toast.error("Error checking donation status");
       }
     };
 
     fetchDonationStatus();
   }, [advo._id, _id]);
-
-  console.log(advo.email);
-  console.log(advo.mobile);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -94,10 +91,9 @@ const SahyogCard = ({ sahyog }) => {
       );
 
       setUploadStatus("Upload successful!");
-      console.log("Uploaded file URL:", response.data.url); // Cloudinary URL
     } catch (error) {
       setUploadStatus("Upload failed. Please try again.");
-      console.error("Error uploading file:", error);
+      toast.error("Upload failed...")
     } finally {
       setIsUploading(false);
     }
