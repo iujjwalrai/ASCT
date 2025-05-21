@@ -15,6 +15,7 @@ const {allVyawastha} = require("../controllers/allVyawastha");
 const {updatePassword} = require("../controllers/updatePassword");
 const {selfDeclaration} = require("../controllers/selfDeclaration");
 const {uploadSahyogPayment} = require("../controllers/uploadSahyogPayment");
+const {uploadVyawasthaPayment} = require("../controllers/uploadVyawasthaPayment");
 const {sendotp} = require("../controllers/forgetPassCon");
 const {verifyOTP} = require("../controllers/forgetPassCon");
 const {resetPassword} = require("../controllers/forgetPassCon");
@@ -53,4 +54,5 @@ router.post("/advocate/verifyOTP", verifyOTP);
 router.post("/advocate/resetPassword", resetPassword)
 
 router.post("/advocate/uploadSahyogPayment", auth, uploadSahyogPayment);
+router.post("/advocate/uploadVyawasthaPayment", auth, uploadVyawasthaPayment);
 module.exports = router;

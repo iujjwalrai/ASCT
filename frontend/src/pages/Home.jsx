@@ -5,6 +5,7 @@ import { founders } from "../assets/founderData";
 import Teams from "../Components/Teams";
 import { Link } from "react-router-dom";
 import Footer from "../Components/Footer";
+import FoundersCarousel from "../Components/FoundersCarousel";
 const Home = () => {
   return (
     <div>
@@ -28,20 +29,7 @@ const Home = () => {
           बन सकें।
         </p>
       </div>
-      <div className="mx-auto text-center text-blue-500 text-4xl font-bold pt-8 bg-black">
-        Our Founders
-      </div>
-      <div className="md:flex  md:flex-row md:justify-evenly pt-10 bg-black pb-10 flex flex-col justify-center">
-        {founders.map((founder) => {
-          return (
-            <Founders
-              name={founder.name}
-              img={founder.img}
-              desg={founder.desg}
-            />
-          );
-        })}
-      </div>
+      <FoundersCarousel founders={founders} />
       <div className="bg-[#144e85] mt-8 pt-14 pb-14">
         <h2 className="text-white text-center text-3xl font-bold mb-8">
           We’re On A Mission To Solve Problems of Advocates
@@ -93,7 +81,8 @@ const Home = () => {
             आज का सहयोग कल का सहारा
           </h1>
           <p className="mt-4 lg:mt-8">
-            ASCT द्वारा अब तक -- वकीलों के परिवारों को आर्थिक सहायता प्रदान की जा चुकी है।
+            ASCT द्वारा अब तक -- वकीलों के परिवारों को आर्थिक सहायता प्रदान की
+            जा चुकी है।
           </p>
           <Link to="/about">
             <button className="mt-4 lg:mt-8 bg-yellow-500 py-2 px-4 rounded-lg">
@@ -102,7 +91,7 @@ const Home = () => {
           </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-6 sm:gap-y-10 mt-10 lg:mt-0 lg:grid-cols-2">
-          <div className="py-4 bg-[#f8f9fa] flex flex-col justify-center border-l-4 border-l-blue-500 rounded-2xl px-4">  
+          <div className="py-4 bg-[#f8f9fa] flex flex-col justify-center border-l-4 border-l-blue-500 rounded-2xl px-4">
             <p className="text-center font-bold text-2xl lg:text-3xl">--</p>
             <p className="text-center text-sm lg:text-base">
               से ज़्यादा पंजीकृत वकील

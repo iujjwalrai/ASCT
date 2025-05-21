@@ -176,11 +176,11 @@ const Profile = () => {
       </div>
       {isPopUpOpen && (
         <div
-          className="overlay fixed top-0 right-0 bottom-0 left-0 backdrop-blur-lg flex justify-center items-center z-10"
+          className="overlay fixed top-0 right-0 bottom-0 left-0 backdrop-blur-lg flex justify-center items-center z-40"
           onClick={closePopUp}
         >
           <div
-            className="content w-[85%] max-w-[90%] h-[95vh] py-12 md:px-12 px-8 rounded-3xl bg-white shadow-2xl shadow-black z-20 relative overflow-y-auto"
+            className="content w-[85%] max-w-[90%] h-[95vh] py-12 md:px-12 px-8 rounded-3xl bg-white shadow-2xl shadow-black z-60 relative overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <IoMdCloseCircle

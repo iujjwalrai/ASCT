@@ -27,10 +27,11 @@ import SelfDeclaration from './Components/SelfDeclaration'
 import { useDispatch, useSelector  } from 'react-redux'
 import { verifyAuth, scheduleAutoLogout } from "./redux/slices/authSlice";
 import { logout } from './redux/slices/authSlice';
-const App = () => {
 
+const App = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, loginTime } = useSelector((state) => state.auth);
+  
   useEffect(() => {
     dispatch(verifyAuth()); // Check session on app load
 
@@ -47,34 +48,38 @@ const App = () => {
       }
     }
   }, [dispatch, isAuthenticated, loginTime]);
+  
   return (
-    <div className='overflow-hidden'>
+    <div>
       <Navbar/>
-      <Menu/>
-      <Routes>
-        <Route path='/' element={<Home/>}></Route>
-        <Route path='/about' element={<About/>}></Route>
-        <Route path='/advocatesList' element={<TeachersList/>}></Route>
-        <Route path='/sahyogList' element={<SahyogList/>}></Route>
-        <Route path='/vyawasthaList' element={<VyawasthaList/>}></Route>
-        <Route path='/niyamawali' element={<Niyamawali/>}></Route>
-        <Route path='/contact' element={<Contact/>}></Route>
-        <Route path='/login' element={<Login/>}></Route>
-        <Route path='/register' element={<Register/>}></Route>
-        <Route path='/adminLogin' element={<AdminLogin/>}></Route>
-        <Route path='/admin/dashboard' element={<ProtectedRouteAdmin><DashboardAdmin/></ProtectedRouteAdmin>}></Route>
-        <Route path='/advocates/dashboard' element={<ProtectedRouteAd><Dashboard/></ProtectedRouteAd>}>
-          <Route index element={<DashboardComp/>}></Route>
-          <Route path='profile' element={<Profile/>}></Route>
-          <Route path='idcard' element={<IdCard/>}/>
-          <Route path='runningSahyog' element={<RunningSahyogList/>}/>
-          <Route path='allSahyog' element={<AllSahyog/>}/>
-          <Route path='allVyawastha' element={<AllVyawastha/>}/>
-          <Route path='updatePass' element={<UpdatePass/>}/>
-          <Route path='selfDeclaration' element={<SelfDeclaration/>}/>
-        </Route>
-        <Route path='*' element={<div className='text-4xl text-blue-950 font-bold h-[60vh] text-center'>Error 404 - Page Not Found</div>}/>
-      </Routes>
+      {/* Dynamic padding based on screen size */}
+      <div className="pt-[205px] sm:pt-[200px] md:pt-[18vh]">
+        <Menu/>
+        <Routes>
+          <Route path='/' element={<Home/>}></Route>
+          <Route path='/about' element={<About/>}></Route>
+          <Route path='/advocatesList' element={<TeachersList/>}></Route>
+          <Route path='/sahyogList' element={<SahyogList/>}></Route>
+          <Route path='/vyawasthaList' element={<VyawasthaList/>}></Route>
+          <Route path='/niyamawali' element={<Niyamawali/>}></Route>
+          <Route path='/contact' element={<Contact/>}></Route>
+          <Route path='/login' element={<Login/>}></Route>
+          <Route path='/register' element={<Register/>}></Route>
+          <Route path='/adminLogin' element={<AdminLogin/>}></Route>
+          <Route path='/admin/dashboard' element={<ProtectedRouteAdmin><DashboardAdmin/></ProtectedRouteAdmin>}></Route>
+          <Route path='/advocates/dashboard' element={<ProtectedRouteAd><Dashboard/></ProtectedRouteAd>}>
+            <Route index element={<DashboardComp/>}></Route>
+            <Route path='profile' element={<Profile/>}></Route>
+            <Route path='idcard' element={<IdCard/>}/>
+            <Route path='runningSahyog' element={<RunningSahyogList/>}/>
+            <Route path='allSahyog' element={<AllSahyog/>}/>
+            <Route path='allVyawastha' element={<AllVyawastha/>}/>
+            <Route path='updatePass' element={<UpdatePass/>}/>
+            <Route path='selfDeclaration' element={<SelfDeclaration/>}/>
+          </Route>
+          <Route path='*' element={<div className='text-4xl text-blue-950 font-bold h-[60vh] text-center'>Error 404 - Page Not Found</div>}/>
+        </Routes>
+      </div>
     </div>
   )
 }

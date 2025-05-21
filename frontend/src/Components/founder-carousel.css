@@ -1,0 +1,305 @@
+.founder-card-container {
+  perspective: 1000px;
+  width: 100%;
+  height: 260px;
+}
+
+/* Responsive height adjustments */
+@media (min-width: 480px) {
+  .founder-card-container {
+    height: 300px;
+  }
+}
+
+@media (min-width: 640px) {
+  .founder-card-container {
+    height: 340px;
+  }
+}
+
+@media (min-width: 768px) {
+  .founder-card-container {
+    height: 380px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .founder-card-container {
+    height: 420px;
+  }
+}
+
+.founder-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Add touch support for mobile devices */
+.founder-slide:hover .founder-card,
+.founder-slide:active .founder-card {
+  transform: rotateY(180deg);
+}
+
+/* Special class that can be toggled with JS for better mobile experience */
+.founder-slide.flipped .founder-card {
+  transform: rotateY(180deg);
+}
+
+.founder-card-front,
+.founder-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+@media (min-width: 640px) {
+  .founder-card-front,
+  .founder-card-back {
+    border-radius: 16px;
+  }
+}
+
+.founder-card-front {
+  background-color: #fff;
+}
+
+.founder-card-back {
+  transform: rotateY(180deg);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.founder-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  z-index: 10;
+  pointer-events: none;
+}
+
+.founder-slide {
+  transition: all 0.3s ease;
+}
+
+.founder-slide.active {
+  transform: scale(1.03);
+  z-index: 20;
+}
+
+/* Reduced scaling effect on mobile */
+@media (max-width: 640px) {
+  .founder-slide.active {
+    transform: scale(1.01);
+  }
+}
+
+.founder-slide.faded {
+  opacity: 0.85;
+}
+
+/* Less opacity difference on mobile */
+@media (max-width: 640px) {
+  .founder-slide.faded {
+    opacity: 0.92;
+  }
+}
+
+.founder-name-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+  padding: 30px 0 12px 0;
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .founder-name-badge {
+    padding: 40px 0 20px 0;
+  }
+}
+
+.founder-name-badge-content {
+  padding: 12px;
+}
+
+@media (min-width: 640px) {
+  .founder-name-badge-content {
+    padding: 16px;
+  }
+}
+
+.keen-slider {
+  padding: 20px 0;
+}
+
+@media (min-width: 640px) {
+  .keen-slider {
+    padding: 40px 0;
+  }
+}
+
+/* Scrollbar styling for bio section */
+.bio-container {
+  max-height: 120px;
+  overflow-y: auto;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .bio-container {
+    max-height: 180px;
+    padding: 16px;
+    border-radius: 12px;
+  }
+}
+
+.bio-container::-webkit-scrollbar {
+  width: 3px;
+}
+
+@media (min-width: 640px) {
+  .bio-container::-webkit-scrollbar {
+    width: 4px;
+  }
+}
+
+.bio-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.bio-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.bio-container::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+/* Carousel navigation buttons */
+.carousel-nav-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: white;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .carousel-nav-button {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.carousel-nav-button:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile navigation buttons */
+.mobile-nav-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: white;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-nav-button:active {
+  background-color: #f5f5f5;
+  transform: scale(0.95);
+}
+
+/* Dot indicators */
+.dot-indicator {
+  height: 6px;
+  border-radius: 3px;
+  background-color: #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .dot-indicator {
+    height: 8px;
+    border-radius: 4px;
+  }
+}
+
+.dot-indicator.active {
+  background-color: #3b82f6;
+  width: 18px;
+}
+
+@media (min-width: 640px) {
+  .dot-indicator.active {
+    width: 24px;
+  }
+}
+
+.dot-indicator:not(.active) {
+  width: 6px;
+  cursor: pointer;
+}
+
+@media (min-width: 640px) {
+  .dot-indicator:not(.active) {
+    width: 8px;
+  }
+}
+
+.dot-indicator:not(.active):hover {
+  background-color: #cbd5e1;
+}
+
+/* Add a special CSS class for image scaling control on mobile */
+.founder-card-front img {
+  object-fit: cover;
+  object-position: center top;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 480px) {
+  .founder-card-front img {
+    object-position: top center;
+    transform: scale(0.95);
+  }
+}

@@ -1,13 +1,21 @@
-import React from 'react'
+import React from 'react';
 
-const Founders = ({name, desg, img}) => {
+const Founders = ({ name, desg, img }) => {
   return (
-      <div className='md:flex px-4 md:flex-col md:items-center flex flex-col items-center'>
-          <img src={img} className='h-[220px] w-[220px] rounded-3xl border-[4px] border-black hover:scale-110 duration-300 hover:shadow-2xl hover:shadow-yellow-700'></img>
-          <h1 className='font-bold text-xl pt-4 text-white text-center'>Ad. {name}</h1>
-          <p className='text-white text-center font-medium mb-6'>{desg}</p>
+    <div className="bg-[#111827] rounded-xl shadow-md hover:shadow-yellow-600 transition-transform transform hover:scale-[1.03] duration-300 w-[220px] text-center">
+      <img
+        src={img}
+        alt={name}
+        className="h-[220px] w-[220px] object-cover rounded-t-xl mx-auto"
+      />
+      <div className="p-4">
+        <h2 className="text-white font-semibold text-[17px] leading-5">
+          Ad. {name}
+        </h2>
+        <p className="text-gray-400 text-sm mt-1">{desg}</p>
       </div>
-  )
-}
+    </div>
+  );
+};
 
-export default Founders
+export default Founders;

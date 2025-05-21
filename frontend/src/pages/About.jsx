@@ -1,32 +1,41 @@
-import React from 'react'
-import Footer from '../Components/Footer'
-import Hero from '../Components/Hero'
-import Card from '../Components/Card'
-import { abouts } from '../assets/aboutUs'
+import React from "react";
+import Footer from "../Components/Footer";
+import Hero from "../Components/Hero";
+import Card from "../Components/Card";
+import { abouts } from "../assets/aboutUs";
 
 const About = () => {
   return (
-    <div>
+    <div className="bg-[#f8f9fa]">
       <Hero />
-      <div>
-        <h1 className='bg-black text-white text-3xl font-bold text-center py-5 px-10'>एडवोकेट सेल्फ केयर टीम - उत्तर प्रदेश</h1>
-        <h1 className='bg-black text-white text-center text-xl px-10'>आइये जानते हैं अधिवक्ता सेल्फ केयर टीम के बारे में क्या है ASCT</h1>
-        <p className='bg-black text-white text-center pt-3 text-md pb-6 px-10'>ASCT अधिवक्ताओं का, अधिवक्ताओं के लिए, अधिवक्ताओं के द्वारा समूह से जुड़े अधिवक्ताओं के असामयिक मृत्यु होने पर उनके परिवार को आर्थिक सहायता देने हेतु बनाया गया है।</p>
-      </div>
-      <div className='flex justify-center py-16 bg-[#D5C5C8]'>
-        <div className='md:grid md:grid-cols-2 md:gap-y-14 md:gap-x-14 grid grid-cols-1 gap-y-14'>
-          {
-            abouts.map((about) => {
-              return (
-                <Card key={about.head} head={about.head} desc={about.desc} />
-              )
-            })
-          }
+
+      {/* Header Section */}
+      <section className="bg-black text-white text-center py-10 px-6">
+        <h1 className="text-4xl font-extrabold mb-4">
+          एडवोकेट सेल्फ केयर टीम - उत्तर प्रदेश
+        </h1>
+        <h2 className="text-2xl font-medium mb-2">
+          आइये जानते हैं अधिवक्ता सेल्फ केयर टीम के बारे में क्या है ASCT
+        </h2>
+        <p className="text-md max-w-4xl mx-auto leading-relaxed">
+          ASCT अधिवक्ताओं का, अधिवक्ताओं के लिए, अधिवक्ताओं के द्वारा समूह से
+          जुड़े अधिवक्ताओं के असामयिक मृत्यु होने पर उनके परिवार को आर्थिक सहायता
+          देने हेतु बनाया गया है।
+        </p>
+      </section>
+
+      {/* Cards Section */}
+      <section className="py-10 px-4 bg-[#eaeaea]">
+        <div className="max-w-6xl mx-auto grid gap-y-14 gap-x-10 sm:grid-cols-1 md:grid-cols-2 place-items-center">
+          {abouts.map((about) => (
+            <Card key={about.head} head={about.head} desc={about.desc} />
+          ))}
         </div>
-      </div>
+      </section>
+
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default About
+export default About;

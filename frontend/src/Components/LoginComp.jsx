@@ -5,21 +5,30 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { setAuth, logout } from "../redux/slices/authSlice";
-import { scheduleAutoLogout } from "../redux/slices/authSlice";
+import { setAuth, logout, scheduleAutoLogout } from "../redux/slices/authSlice";
 import logo from "../assets/images/Logo_Transparent_BG.png";
 import { IoMdCloseCircle } from "react-icons/io";
+import { motion } from "framer-motion";
+
 const LoginComp = () => {
   const [isPopUpOpen, setIsPopUpOpen] = useState();
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
   const [updateDetails, setUpdateDetails] = useState({});
   const { register, handleSubmit, reset } = useForm();
+   const [isEasterEggOpen, setIsEasterEggOpen] = useState(false);
   const forgetForm = useForm();
   const verifyOTPForm = useForm();
   const updatePassForm = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleEasterEggDoubleClick = () => {
+    setIsEasterEggOpen(true);
+  };
+  const closeEasterEgg = () => {
+    setIsEasterEggOpen(false);
+  };
 
   const submitHandler = async (data) => {
     try {
@@ -121,7 +130,7 @@ const LoginComp = () => {
           </div>
         ),
         {
-          duration: Infinity, 
+          duration: Infinity,
         }
       );
 
@@ -199,14 +208,37 @@ const LoginComp = () => {
       className={`bg-cover bg-no-repeat min-h-screen w-full flex justify-center items-center py-24 relative`}
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      <div className="w-[600px] max-w-[90%] h-[650px] max-h-[85%] rounded-3xl text-white bg-white bg-opacity-10 backdrop-blur-sm">
-        <div className="py-10 text-center font-bold text-3xl">
-          Login ASCT - UP
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8, y: 50 }}
+        animate={{
+          opacity: [0, 1],
+          scale: [0.9, 1],
+          y: [60, 0],
+        }}
+        transition={{
+          duration: 0.8,
+          ease: "easeInOut",
+        }}
+        className="w-[600px] max-w-[90%] pb-12 max-h-[85%] rounded-3xl text-white bg-white bg-opacity-10 backdrop-blur-sm shadow-2xl hover:shadow-blue-400/30 transition-shadow duration-500"
+      >
+        {/* ASCT Image at the top */}
+        <div className="flex justify-center my-6">
+          <img
+            src={logo} // You can replace with your ASCT image path here
+            alt="ASCT Logo"
+            className="w-40 h-auto cursor-pointer select-none"
+            onDoubleClick={handleEasterEggDoubleClick}
+            title="Double click me!"
+          />
         </div>
+
+        <div className="py-2 text-center font-bold text-3xl mb-3">Login ASCT - UP</div>
+        
         <form
           className="flex flex-col px-8 sm:px-20"
           onSubmit={handleSubmit(submitHandler)}
         >
+          {/* ...existing inputs and buttons... */}
           <div className="floating-label-container">
             <input
               type="text"
@@ -248,7 +280,47 @@ const LoginComp = () => {
             Register
           </button>
         </form>
-      </div>
+      </motion.div>
+
+      {/* Easter Egg Dialog */}
+      {isEasterEggOpen && (
+        <div
+          className="fixed inset-0 flex justify-center items-center bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 bg-opacity-90 z-50"
+          onClick={closeEasterEgg}
+        >
+          <motion.div
+            onClick={(e) => e.stopPropagation()}
+            initial={{ scale: 0.5, opacity: 0, y: 50 }}
+            animate={{
+              scale: [1.1, 1, 1.05, 1],
+              opacity: 1,
+              y: [0, -20, 0],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              repeatType: "mirror",
+              ease: "easeInOut",
+            }}
+            className="bg-white rounded-3xl p-10 max-w-md text-center shadow-lg"
+          >
+            <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600 mb-4">
+              🎉 Thank you for supporting the ASCT! 🎉
+            </h2>
+            <p className="text-lg text-gray-700 font-semibold">
+              You found the Easter egg stuff!
+            </p>
+            <button
+              onClick={closeEasterEgg}
+              className="mt-6 px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 to-yellow-400 text-white font-bold hover:scale-105 transition-transform"
+            >
+              Close
+            </button>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Existing popup for forget password... */}
       {isPopUpOpen && (
         <div
           className="fixed top-0 bottom-0 right-0 left-0 backdrop-blur-lg flex justify-center items-center"
