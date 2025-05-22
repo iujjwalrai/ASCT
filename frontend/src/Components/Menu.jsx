@@ -25,36 +25,36 @@ const Menu = () => {
       >
         <ul className="flex flex-col md:flex-row bg-black text-white justify-around px-20 items-center md:h-20">
           <Link to="/">
-            <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
+            <li onClick={() => setIsOpen(false)} className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
               Home
             </li>
           </Link>
           <Link to="/about">
-            <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
+            <li onClick={() => setIsOpen(false)} className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
               About Us
             </li>
           </Link>
-          <Link to="/advocatesList">
+          <Link onClick={() => setIsOpen(false)} to="/advocatesList">
             <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
               Advocates List
             </li>
           </Link>
-          <Link to="/sahyogList">
+          <Link onClick={() => setIsOpen(false)} to="/sahyogList">
             <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
               Sahyog List
             </li>
           </Link>
-          <Link to="/vyawasthaList">
+          <Link onClick={() => setIsOpen(false)} to="/vyawasthaList">
             <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
               Vyawastha List
             </li>
           </Link>
-          <Link to="/niyamawali">
+          <Link onClick={() => setIsOpen(false)} to="/niyamawali">
             <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
               Niyamawali
             </li>
           </Link>
-          <Link to="/contact">
+          <Link onClick={() => setIsOpen(false)} to="/contact">
             <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
               Contact
             </li>
@@ -62,19 +62,19 @@ const Menu = () => {
           {!isAuthenticated ? (
             <>
               <Link to="/login">
-                <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
+                <li onClick={() => setIsOpen(false)} className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
                   Login
                 </li>
               </Link>
               <Link to="/register">
-                <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
+                <li onClick={() => setIsOpen(false)} className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
                   Register
                 </li>
               </Link>
             </>
           ) : (
             <Link to="/advocates/dashboard">
-              <li className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
+              <li onClick={() => setIsOpen(false)} className="font-bold cursor-pointer text-lg hover:border-b-4 hover:border-b-blue-500 flex items-center justify-center transition duration-300 py-2 md:py-0">
                 Dashboard
               </li>
             </Link>
