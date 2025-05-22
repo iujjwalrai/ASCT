@@ -63,7 +63,7 @@ const RegisterCom = () => {
   }
 
   return (
-    <div className={`bg-cover bg-no-repeat min-h-screen w-full flex justify-center items-center py-24`} style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <div className={`bg-blue-900 bg-cover bg-no-repeat min-h-screen w-full flex justify-center items-center py-24`} style={{ backgroundImage: `url(${backgroundImage})` }}>
       <motion.div
         initial={{ opacity: 0, scale: 0.8, y: 50 }}
         animate={{

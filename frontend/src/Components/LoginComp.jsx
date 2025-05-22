@@ -205,7 +205,7 @@ const LoginComp = () => {
 
   return (
     <div
-      className={`bg-cover bg-no-repeat min-h-screen w-full flex justify-center items-center py-24 relative`}
+      className={`bg-blue-900 bg-cover bg-no-repeat min-h-screen w-full flex justify-center items-center py-24 relative`}
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <motion.div
@@ -238,12 +238,11 @@ const LoginComp = () => {
           className="flex flex-col px-8 sm:px-20"
           onSubmit={handleSubmit(submitHandler)}
         >
-          {/* ...existing inputs and buttons... */}
           <div className="floating-label-container">
             <input
               type="text"
               className="peer h-12 bg-white bg-opacity-20 border-white border rounded-xl px-4 sm:px-10 placeholder-transparent text-lg"
-              placeholder="Enter your mobile number"
+              placeholder="Enter your mobile number" required
               {...register("mobile")}
             />
             <label className="absolute">Enter your mobile number</label>
@@ -254,7 +253,7 @@ const LoginComp = () => {
               type="password"
               className="peer h-12 bg-white bg-opacity-20 border-white border rounded-xl px-4 sm:px-10 placeholder-transparent text-lg"
               placeholder="Enter your password"
-              {...register("password")}
+              {...register("password")} required
             />
             <label className="absolute">Enter your password</label>
           </div>
@@ -282,7 +281,6 @@ const LoginComp = () => {
         </form>
       </motion.div>
 
-      {/* Easter Egg Dialog */}
       {isEasterEggOpen && (
         <div
           className="fixed inset-0 flex justify-center items-center bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 bg-opacity-90 z-50"
@@ -319,8 +317,6 @@ const LoginComp = () => {
           </motion.div>
         </div>
       )}
-
-      {/* Existing popup for forget password... */}
       {isPopUpOpen && (
         <div
           className="fixed top-0 bottom-0 right-0 left-0 backdrop-blur-lg flex justify-center items-center"
