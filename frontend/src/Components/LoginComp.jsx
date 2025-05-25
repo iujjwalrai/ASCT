@@ -393,12 +393,12 @@ const LoginComp = () => {
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            className="bg-white/10 backdrop-blur-2xl border border-white/20 relative w-full max-w-lg py-8 px-8 rounded-3xl shadow-2xl"
+            className="bg-white/10 backdrop-blur-2xl border border-white/20 relative w-full max-w-lg py-8 px-8 rounded-3xl shadow-2xl my-8 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={closePopUp}
-              className="absolute top-4 right-4 text-white hover:text-red-400 transition-colors duration-300"
+              className="absolute top-4 right-4 text-white hover:text-red-400 transition-colors duration-300 z-10"
             >
               <IoMdCloseCircle className="text-4xl" />
             </button>
