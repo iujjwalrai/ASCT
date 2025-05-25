@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Navbar from './Components/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import Menu from './Components/Menu'
@@ -27,75 +27,13 @@ import SelfDeclaration from './Components/SelfDeclaration'
 import { useDispatch, useSelector  } from 'react-redux'
 import { verifyAuth, scheduleAutoLogout } from "./redux/slices/authSlice";
 import { logout } from './redux/slices/authSlice';
-import logo from "./assets/images/Logo_Transparent_BG.png";
-
-// Beautiful Loading Screen Component - ADDED ONLY
-const LoadingScreen = () => {
-  return (
-    <div className="fixed inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 flex items-center justify-center z-50">
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-20 h-20 border border-white rounded-full animate-pulse"></div>
-        <div className="absolute top-32 right-20 w-16 h-16 border border-white rounded-full animate-pulse"></div>
-        <div className="absolute bottom-20 left-20 w-12 h-12 border border-white rounded-full animate-pulse"></div>
-        <div className="absolute bottom-32 right-32 w-24 h-24 border border-white rounded-full animate-pulse"></div>
-      </div>
-      
-      <div className="text-center z-10 flex flex-col items-center">
-        <div className="mb-8 relative">
-           <img src={logo} width={200}></img>
-        </div>
-        
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-          Advocates Self Care Team - Uttar Pradesh
-        </h1>
-        
-        <p className="text-xl text-blue-200 mb-8">
-          आज का सहयोग कल का सहारा
-        </p>
-        
-        <div className="flex justify-center items-center space-x-2">
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-        </div>
-        
-        <p className="text-white mt-4 animate-pulse">Loading...</p>
-      </div>
-      
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-30"></div>
-    </div>
-  );
-};
 
 const App = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, loginTime } = useSelector((state) => state.auth);
   
-  // ADDED ONLY - Loading state
-  const [isLoading, setIsLoading] = useState(true);
-  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
-  const [appReady, setAppReady] = useState(false);
-  
   useEffect(() => {
-    const startTime = Date.now();
-    
-    // Initialize app
-    const initializeApp = async () => {
-      try {
-        await dispatch(verifyAuth()); // Check session on app load
-        setAppReady(true);
-      } catch (error) {
-        console.error('Auth verification failed:', error);
-        setAppReady(true); // Still mark as ready even if auth fails
-      }
-    };
-
-    // Ensure minimum 2 seconds loading time
-    setTimeout(() => {
-      setMinTimeElapsed(true);
-    }, 2000);
-
-    initializeApp();
+    dispatch(verifyAuth()); // Check session on app load
 
     if (isAuthenticated && loginTime) {
       const timeElapsed = Date.now() - loginTime;
@@ -110,18 +48,6 @@ const App = () => {
       }
     }
   }, [dispatch, isAuthenticated, loginTime]);
-
-  // Hide loading only when both conditions are met
-  useEffect(() => {
-    if (minTimeElapsed && appReady) {
-      setIsLoading(false);
-    }
-  }, [minTimeElapsed, appReady]);
-  
-  // ADDED ONLY - Show loading screen
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
   
   return (
     <div>
