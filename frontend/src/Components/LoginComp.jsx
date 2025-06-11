@@ -9,9 +9,10 @@ import { setAuth, logout, scheduleAutoLogout } from "../redux/slices/authSlice";
 import logo from "../assets/images/Logo_Transparent_BG.png";
 import { IoMdCloseCircle } from "react-icons/io";
 import { motion } from "framer-motion";
-
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 const LoginComp = () => {
   const [isPopUpOpen, setIsPopUpOpen] = useState();
+  const [showPassword, setShowPassword] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
   const [updateDetails, setUpdateDetails] = useState({});
@@ -223,16 +224,20 @@ const LoginComp = () => {
       >
         {/* Main Container */}
         <div className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
-          
           {/* Header Section */}
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20"></div>
             <div className="relative px-8 py-8 text-center">
               {/* ASCT Logo */}
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.2, duration: 0.8, type: "spring", bounce: 0.5 }}
+                transition={{
+                  delay: 0.2,
+                  duration: 0.8,
+                  type: "spring",
+                  bounce: 0.5,
+                }}
                 className="flex justify-center mb-6"
               >
                 <img
@@ -244,7 +249,7 @@ const LoginComp = () => {
                 />
               </motion.div>
 
-              <motion.h1 
+              <motion.h1
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
@@ -252,7 +257,7 @@ const LoginComp = () => {
               >
                 Welcome Back
               </motion.h1>
-              <motion.p 
+              <motion.p
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
@@ -260,7 +265,7 @@ const LoginComp = () => {
               >
                 ASCT - UP Login Portal
               </motion.p>
-              <motion.p 
+              <motion.p
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
@@ -296,17 +301,21 @@ const LoginComp = () => {
               </div>
 
               {/* Password Field */}
-              <div className="group">
+              <div className="group relative">
                 <label className="block text-gray-300 text-sm font-medium mb-2">
                   Password <span className="text-red-400">*</span>
                 </label>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   required
                   {...register("password")}
                   className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20"
                   placeholder="Enter your password"
                 />
+                <div
+                  className="absolute right-4 top-11 text-white cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                >{showPassword ? <FaEyeSlash /> : <FaEye />}</div>
               </div>
 
               {/* Action Buttons */}
@@ -502,7 +511,8 @@ const LoginComp = () => {
                   </div>
                   <div>
                     <label className="block text-gray-300 text-sm font-medium mb-2">
-                      Confirm New Password <span className="text-red-400">*</span>
+                      Confirm New Password{" "}
+                      <span className="text-red-400">*</span>
                     </label>
                     <input
                       type="password"

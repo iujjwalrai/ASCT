@@ -27,7 +27,8 @@ import SelfDeclaration from './Components/SelfDeclaration'
 import { useDispatch, useSelector  } from 'react-redux'
 import { verifyAuth, scheduleAutoLogout } from "./redux/slices/authSlice";
 import { logout } from './redux/slices/authSlice';
-
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import Footer from './Components/Footer'
 const App = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, loginTime } = useSelector((state) => state.auth);
@@ -77,7 +78,8 @@ const App = () => {
             <Route path='updatePass' element={<UpdatePass/>}/>
             <Route path='selfDeclaration' element={<SelfDeclaration/>}/>
           </Route>
-          <Route path='*' element={<div className='text-4xl text-blue-950 font-bold h-[60vh] text-center'>Error 404 - Page Not Found</div>}/>
+          <Route path='privacy' element={<PrivacyPolicy/>}/>
+          <Route path='*' element={<div><div className='text-4xl text-blue-950 font-bold h-[60vh] text-center'>Error 404 - Page Not Found</div><Footer/></div>}/>
         </Routes>
       </div>
     </div>

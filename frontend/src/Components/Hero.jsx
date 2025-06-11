@@ -15,10 +15,10 @@ const Hero = () => {
           {/* Left Content */}
           <div className="w-full md:w-1/2 pr-0 md:pr-12 mb-12 md:mb-0">
             <span className="inline-block px-4 py-1 bg-blue-50 text-blue-600 font-bold text-sm rounded-full mb-5">
-              आज का सहयोग कल का सहारा
+              आपका सहयोग अपनों का सहारा
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              In Support of <span className="text-blue-600">Advocates</span> and <span className="text-blue-600"> their families</span>
+              In Support to <span className="text-blue-600">Advocates</span> and <span className="text-blue-600"> their families</span>
             </h1>
             <p className="text-lg text-gray-600 mb-8 max-w-lg">
               Our aim is to support the Advocates and their families when they need the most. We have taken a initative and we pledge to fulfil it.

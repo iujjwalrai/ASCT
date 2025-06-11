@@ -1,66 +1,82 @@
-import React from 'react'
-import backgroundImage from '../assets/images/logniImage2.jpg';
-import { useForm } from "react-hook-form"
-import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { upDistrictsAndTehsils } from '../assets/upDistrictsAndTeshils'
-import toast from 'react-hot-toast';
-import axios from 'axios';
-import { motion } from 'framer-motion';
-
+import React from "react";
+import backgroundImage from "../assets/images/logniImage2.jpg";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { upDistrictsAndTehsils } from "../assets/upDistrictsAndTeshils";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 const districts = Object.keys(upDistrictsAndTehsils);
 const RegisterCom = () => {
   const navigate = useNavigate();
   const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [teshsils, setTehsils] = useState([])
+  const [teshsils, setTehsils] = useState([]);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const handleDistrictChange = (event) => {
     const dis = event.target.value;
     setSelectedDistrict(dis);
-    setTehsils(dis ? upDistrictsAndTehsils[dis] : [])
-  }
+    setTehsils(dis ? upDistrictsAndTehsils[dis] : []);
+  };
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const submitHandler = async (data) => {
     if (data.password !== data.confirmPassword) {
-    toast.error("Password and Confirm Password do not match!");
-    return;
-  }
+      toast.error("Password and Confirm Password do not match!");
+      return;
+    }
     const { confirmPassword, ...formDataWithoutConfirm } = data;
     const formData = { ...formDataWithoutConfirm, Jila: selectedDistrict };
 
     try {
-      const responseFromServer = await toast.promise(axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/registerPortal/register`, JSON.stringify(formData), {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      }), {
-        loading: "Registering on ASCT - UP",
-        success: <b>Successfully Registered on ASCT - UP</b>,
-        error: <b>Could Not register on ASCT - Up</b>
-      });
+      const responseFromServer = await toast.promise(
+        axios.post(
+          `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/registerPortal/register`,
+          JSON.stringify(formData),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        ),
+        {
+          loading: "Registering on ASCT - UP",
+          success: <b>Successfully Registered on ASCT - UP</b>,
+          error: <b>Could Not register on ASCT - Up</b>,
+        }
+      );
       reset();
-      setSelectedDistrict("")
+      setSelectedDistrict("");
       navigate("/login");
-      toast.success('You are successfully registered on ASCT. Kindly login with your credentials', {
-        style: {
-          border: '1px solid #713200',
-          padding: '16px',
-          color: '#713200',
-        },
-        iconTheme: {
-          primary: '#713200',
-          secondary: '#FFFAEE',
-        },
-      });
-
-    }
-    catch (er) {
+      toast.success(
+        "You are successfully registered on ASCT. Kindly login with your credentials",
+        {
+          style: {
+            border: "1px solid #713200",
+            padding: "16px",
+            color: "#713200",
+          },
+          iconTheme: {
+            primary: "#713200",
+            secondary: "#FFFAEE",
+          },
+        }
+      );
+    } catch (er) {
       toast.error(er.response.data.message);
     }
-
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center p-4 relative overflow-hidden">
@@ -82,12 +98,11 @@ const RegisterCom = () => {
       >
         {/* Main Container */}
         <div className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
-          
           {/* Header Section */}
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20"></div>
             <div className="relative px-8 py-12 text-center">
-              <motion.h1 
+              <motion.h1
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
@@ -95,13 +110,13 @@ const RegisterCom = () => {
               >
                 ASCT - UP Registration
               </motion.h1>
-              <motion.p 
+              <motion.p
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-gray-300 text-lg font-medium"
               >
-                आज का सहयोग कल का सहारा
+                आपका सहयोग अपनों का सहारा
               </motion.p>
               <div className="mt-6 h-1 w-32 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
             </div>
@@ -110,9 +125,8 @@ const RegisterCom = () => {
           {/* Form Container */}
           <div className="px-8 pb-8">
             <form onSubmit={handleSubmit(submitHandler)} className="space-y-8">
-              
               {/* Personal Information Section */}
-              <motion.div 
+              <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
@@ -179,10 +193,18 @@ const RegisterCom = () => {
                       {...register("Gender")}
                       className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20"
                     >
-                      <option className="bg-gray-800 text-white" value="">Choose Gender</option>
-                      <option className="bg-gray-800 text-white" value="Male">Male</option>
-                      <option className="bg-gray-800 text-white" value="Female">Female</option>
-                      <option className="bg-gray-800 text-white" value="Other">Other</option>
+                      <option className="bg-gray-800 text-white" value="">
+                        Choose Gender
+                      </option>
+                      <option className="bg-gray-800 text-white" value="Male">
+                        Male
+                      </option>
+                      <option className="bg-gray-800 text-white" value="Female">
+                        Female
+                      </option>
+                      <option className="bg-gray-800 text-white" value="Other">
+                        Other
+                      </option>
                     </select>
                   </div>
                   <div className="group">
@@ -193,20 +215,34 @@ const RegisterCom = () => {
                       {...register("BloodGroup")}
                       className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20"
                     >
-                      <option className="bg-gray-800 text-white" value="">Choose Blood Group</option>
-                      <option className="bg-gray-800 text-white" value="A+">A+</option>
-                      <option className="bg-gray-800 text-white" value="A-">A-</option>
-                      <option className="bg-gray-800 text-white" value="B+">B+</option>
-                      <option className="bg-gray-800 text-white" value="B-">B-</option>
-                      <option className="bg-gray-800 text-white" value="O+">O+</option>
-                      <option className="bg-gray-800 text-white" value="O-">O-</option>
+                      <option className="bg-gray-800 text-white" value="">
+                        Choose Blood Group
+                      </option>
+                      <option className="bg-gray-800 text-white" value="A+">
+                        A+
+                      </option>
+                      <option className="bg-gray-800 text-white" value="A-">
+                        A-
+                      </option>
+                      <option className="bg-gray-800 text-white" value="B+">
+                        B+
+                      </option>
+                      <option className="bg-gray-800 text-white" value="B-">
+                        B-
+                      </option>
+                      <option className="bg-gray-800 text-white" value="O+">
+                        O+
+                      </option>
+                      <option className="bg-gray-800 text-white" value="O-">
+                        O-
+                      </option>
                     </select>
                   </div>
                 </div>
               </motion.div>
 
               {/* Security Section */}
-              <motion.div 
+              <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
@@ -216,36 +252,52 @@ const RegisterCom = () => {
                   <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
                   Security Information
                 </h3>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="group">
+                  {/* Password Field */}
+                  <div className="group relative">
                     <label className="block text-gray-300 text-sm font-medium mb-2">
                       Password <span className="text-red-400">*</span>
                     </label>
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       required
                       {...register("password")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-purple-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-purple-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400/20 pr-10"
                       placeholder="Create a strong password"
                     />
+                    <div
+                      className="absolute right-4 top-11 text-white cursor-pointer"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </div>
                   </div>
-                  <div className="group">
+
+                  {/* Confirm Password Field */}
+                  <div className="group relative">
                     <label className="block text-gray-300 text-sm font-medium mb-2">
                       Confirm Password <span className="text-red-400">*</span>
                     </label>
                     <input
-                      type="password"
+                      type={showConfirm ? "text" : "password"}
                       required
                       {...register("confirmPassword")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-purple-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-purple-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400/20 pr-10"
                       placeholder="Confirm your password"
                     />
+                    <div
+                      className="absolute right-4 top-11 text-white cursor-pointer"
+                      onClick={() => setShowConfirm(!showConfirm)}
+                    >
+                      {showConfirm ? <FaEyeSlash /> : <FaEye />}
+                    </div>
                   </div>
                 </div>
               </motion.div>
 
               {/* Professional Information Section */}
-              <motion.div 
+              <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.6 }}
@@ -311,17 +363,34 @@ const RegisterCom = () => {
                       {...register("AdPractice")}
                       className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-green-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400/20"
                     >
-                      <option className="bg-gray-800 text-white" value="">Choose Practice Level</option>
-                      <option className="bg-gray-800 text-white" value="Uchh Nyayalay">Uchh Nyayalay</option>
-                      <option className="bg-gray-800 text-white" value="Jila Nyayalay">Jila Nyayalay</option>
-                      <option className="bg-gray-800 text-white" value="Tehsil Nyayalay">Tehsil Nyayalay</option>
+                      <option className="bg-gray-800 text-white" value="">
+                        Choose Practice Level
+                      </option>
+                      <option
+                        className="bg-gray-800 text-white"
+                        value="Uchh Nyayalay"
+                      >
+                        Uchh Nyayalay
+                      </option>
+                      <option
+                        className="bg-gray-800 text-white"
+                        value="Jila Nyayalay"
+                      >
+                        Jila Nyayalay
+                      </option>
+                      <option
+                        className="bg-gray-800 text-white"
+                        value="Tehsil Nyayalay"
+                      >
+                        Tehsil Nyayalay
+                      </option>
                     </select>
                   </div>
                 </div>
               </motion.div>
 
               {/* Location Information Section */}
-              <motion.div 
+              <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.7, duration: 0.6 }}
@@ -343,9 +412,15 @@ const RegisterCom = () => {
                       name="Jila"
                       className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-orange-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
                     >
-                      <option className="bg-gray-800 text-white" value="">Choose District</option>
+                      <option className="bg-gray-800 text-white" value="">
+                        Choose District
+                      </option>
                       {districts.map((district) => (
-                        <option key={district} className="bg-gray-800 text-white" value={district}>
+                        <option
+                          key={district}
+                          className="bg-gray-800 text-white"
+                          value={district}
+                        >
                           {district}
                         </option>
                       ))}
@@ -360,7 +435,9 @@ const RegisterCom = () => {
                       {...register("Tehsil")}
                       className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-orange-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
                     >
-                      <option className="bg-gray-800 text-white">Choose Tehsil</option>
+                      <option className="bg-gray-800 text-white">
+                        Choose Tehsil
+                      </option>
                       {teshsils.map((tehsil) => (
                         <option key={tehsil} className="bg-gray-800 text-white">
                           {tehsil}
@@ -377,9 +454,15 @@ const RegisterCom = () => {
                       {...register("HomeDistrict")}
                       className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-orange-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
                     >
-                      <option className="bg-gray-800 text-white" value="">Choose Home District</option>
+                      <option className="bg-gray-800 text-white" value="">
+                        Choose Home District
+                      </option>
                       {districts.map((district) => (
-                        <option key={district} className="bg-gray-800 text-white" value={district}>
+                        <option
+                          key={district}
+                          className="bg-gray-800 text-white"
+                          value={district}
+                        >
                           {district}
                         </option>
                       ))}
@@ -401,7 +484,7 @@ const RegisterCom = () => {
               </motion.div>
 
               {/* Action Buttons */}
-              <motion.div 
+              <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
@@ -426,7 +509,7 @@ const RegisterCom = () => {
         </div>
       </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default RegisterCom
+export default RegisterCom;

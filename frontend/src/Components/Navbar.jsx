@@ -35,7 +35,7 @@ const Navbar = () => {
             Advocates Self Care Team - Uttar Pradesh
           </h1>
           <p className="text-[#32a1e6] mt-2 text-sm md:text-base">
-            आज का सहयोग कल का सहारा
+            आपका सहयोग अपनों का सहारा
           </p>
         </div>
 

@@ -30,13 +30,13 @@ export const teams = [
         img: 'https://res.cloudinary.com/dkvuuyi2k/image/upload/v1730815229/RashmiTripathi_vq9ydi.jpg'
     },
     {
-        name: 'Dinesh Kumar Singh',
-        desg: 'Memeber',
+        name: 'Dinesh Singh',
+        desg: 'Member',
         img: 'https://res.cloudinary.com/dkvuuyi2k/image/upload/v1730815226/DineshKumarSingh_exf7ph.jpg'
     },
     {
         name: 'Krishna Kumar Upadhyay',
-        desg: 'Memeber',
+        desg: 'Member',
         img: 'https://res.cloudinary.com/dkvuuyi2k/image/upload/v1730815227/KrishnaKumarUpadhyay_ukj2le.jpg'
     }
 ]

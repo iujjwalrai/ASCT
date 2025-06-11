@@ -78,7 +78,7 @@ const Home = () => {
             Winning Hearts
           </p>
           <h1 className="text-blue-900 text-3xl lg:text-4xl font-bold mt-4 lg:mt-8">
-            आज का सहयोग कल का सहारा
+            आपका सहयोग अपनों का सहारा
           </h1>
           <p className="mt-4 lg:mt-8">
             ASCT द्वारा अब तक -- वकीलों के परिवारों को आर्थिक सहायता प्रदान की
