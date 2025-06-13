@@ -441,7 +441,7 @@ const Niyamawali = () => {
               {/* PDF Content */}
               <div className="h-full pb-20 overflow-hidden">
                 <iframe
-                  src={pdfUrl.replace('&dl=1', '&raw=1')}
+                  src={`https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(pdfUrl)}`}
                   className="w-full h-full border-0"
                   title="ASCT Niyamawali PDF"
                 />
