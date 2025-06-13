@@ -11,12 +11,16 @@ import {
   Clock,
   DollarSign,
   X,
+  Download,
+  Eye,
 } from "lucide-react";
-import Footer from "../Components/Footer";
 
 const Niyamawali = () => {
   const [selectedRule, setSelectedRule] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPdfViewerOpen, setIsPdfViewerOpen] = useState(false);
+
+  const pdfUrl = "https://www.dropbox.com/scl/fi/5gci35bo383dvdgph703j/Rules.pdf?rlkey=ck8irlnkx8q9ci0biilntlchu&st=n5b7a3u2&dl=1";
 
   const openModal = (rule) => {
     setSelectedRule(rule);
@@ -30,21 +34,44 @@ const Niyamawali = () => {
     document.body.style.overflow = "unset";
   };
 
+  const openPdfViewer = () => {
+    setIsPdfViewerOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closePdfViewer = () => {
+    setIsPdfViewerOpen(false);
+    document.body.style.overflow = "unset";
+  };
+
+  const downloadPdf = () => {
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.download = 'ASCT-UP-Niyamawali.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {
-        closeModal();
+        if (isPdfViewerOpen) {
+          closePdfViewer();
+        } else if (isModalOpen) {
+          closeModal();
+        }
       }
     };
 
-    if (isModalOpen) {
+    if (isModalOpen || isPdfViewerOpen) {
       document.addEventListener("keydown", handleEscape);
     }
 
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [isModalOpen]);
+  }, [isModalOpen, isPdfViewerOpen]);
 
   const rules = [
     {
@@ -186,32 +213,33 @@ const Niyamawali = () => {
             </div>
           </div>
         </div>
-        <p className="text-center text-xl py-8 font-bold">
-          Click{" "}
-          <a
-            href="https://www.dropbox.com/scl/fi/5gci35bo383dvdgph703j/Rules.pdf?rlkey=ck8irlnkx8q9ci0biilntlchu&st=n5b7a3u2&dl=1"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-red-500"
-          >
-            here
-          </a>{" "}
-          to Download the Niyamawali Of Advoacates Self Care Team - Uttar
-          Pradesh
-        </p>
+
+        <div className="text-center py-8">
+          <p className="text-xl font-bold mb-4">
+            Click{" "}
+            <button
+              onClick={openPdfViewer}
+              className="text-blue-600 hover:text-blue-800 underline inline-flex items-center gap-1 transition-colors duration-200"
+            >
+              <Eye className="w-4 h-4" />
+              here
+            </button>{" "}
+            to View the Niyamawali Of Advocates Self Care Team - Uttar Pradesh
+          </p>
+        </div>
+
         <div className="font-bold text-lg">
           <p>
             Else, you can explore each rule section by clicking on the tiles
             below. In case of any conflict between the rules displayed on the
             tile and those mentioned in the{" "}
             <span className="text-red-600">
-              <a
-                href="https://www.dropbox.com/scl/fi/5gci35bo383dvdgph703j/Rules.pdf?rlkey=ck8irlnkx8q9ci0biilntlchu&st=n5b7a3u2&dl=1"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={openPdfViewer}
+                className="underline hover:text-red-800 transition-colors duration-200"
               >
                 PDF
-              </a>
+              </button>
             </span>{" "}
             above, the rules stated in the PDF shall prevail.<br></br>{" "}
             <b>Regards ASCT - UP</b>
@@ -222,13 +250,12 @@ const Niyamawali = () => {
             अन्यथा, आप नीचे दिए गए टाइल्स पर क्लिक करके प्रत्येक नियम अनुभाग को
             देख सकते हैं। यदि टाइल पर दिखाए गए नियमों और ऊपर दिए गए
             <span className="text-red-600">
-              <a
-                href="https://www.dropbox.com/scl/fi/5gci35bo383dvdgph703j/Rules.pdf?rlkey=ck8irlnkx8q9ci0biilntlchu&st=n5b7a3u2&dl=1"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={openPdfViewer}
+                className="underline hover:text-red-800 transition-colors duration-200"
               >
                 PDF
-              </a>
+              </button>
             </span>
             में लिखे नियमों के बीच कोई विरोध होता है, तो PDF में लिखे गए नियम ही
             मान्य माने जाएंगे।
@@ -308,7 +335,7 @@ const Niyamawali = () => {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Rule Details Modal */}
       {isModalOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
@@ -380,6 +407,49 @@ const Niyamawali = () => {
           </div>
         </div>
       )}
+
+      {/* PDF Viewer Panel */}
+        {isPdfViewerOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-50 animate-slideUp">
+            <div
+              className={`fixed inset-x-0 bottom-0 bg-transparent backdrop-blur-md rounded-t-3xl shadow-2xl transform transition-transform duration-500`}
+              style={{ height: '90vh' }}
+            >
+              {/* Panel Header */}
+              <div className="flex items-center justify-between p-6 bg-transparent text-white rounded-t-3xl">
+                <div className="flex items-center space-x-3">
+                  <FileText className="w-6 h-6" />
+                  <h3 className="text-xl font-semibold">ASCT - UP Niyamawali</h3>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={downloadPdf}
+                    className="p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-colors duration-200 flex items-center space-x-2"
+                    title="Download PDF"
+                  >
+                    <Download className="w-5 h-5" />
+                    <span className="text-sm font-medium">Download</span>
+                  </button>
+                  <button
+                    onClick={closePdfViewer}
+                    className="p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-colors duration-200"
+                    title="Close"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+              {/* PDF Content */}
+              <div className="h-full pb-20 overflow-hidden">
+                <iframe
+                  src={pdfUrl.replace('&dl=1', '&raw=1')}
+                  className="w-full h-full border-0"
+                  title="ASCT Niyamawali PDF"
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
       <style jsx>{`
         @keyframes bounceIn {

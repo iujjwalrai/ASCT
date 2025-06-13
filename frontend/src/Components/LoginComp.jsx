@@ -271,7 +271,7 @@ const LoginComp = () => {
                 transition={{ delay: 0.5, duration: 0.6 }}
                 className="text-gray-400 text-sm"
               >
-                आज का सहयोग कल का सहारा
+                आपका सहयोग अपनों का सहारा
               </motion.p>
               <div className="mt-4 h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
             </div>

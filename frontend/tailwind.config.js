@@ -7,11 +7,16 @@ module.exports = {
     extend: {
       animation: {
         swing: 'swing 3s ease-in-out infinite',
+        slideUp: 'slideUp 0.4s ease-out'
       },
       keyframes: {
         swing: {
           '0%, 100%': { transform: 'translateX(0deg)' },
           '50%': { transform: 'translateX(2deg)' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(100%)', opacity: '1' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
         },
       },
       willChange: {
