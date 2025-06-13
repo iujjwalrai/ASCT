@@ -19,8 +19,7 @@ const Niyamawali = () => {
   const [selectedRule, setSelectedRule] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPdfViewerOpen, setIsPdfViewerOpen] = useState(false);
-
-  const pdfUrl = "https://www.dropbox.com/scl/fi/5gci35bo383dvdgph703j/Rules.pdf?rlkey=ck8irlnkx8q9ci0biilntlchu&st=n5b7a3u2&dl=1";
+  const pdfUrl = "https://www.dropbox.com/scl/fi/usnq1zueldjs025mcj6tq/Rules_Final.pdf?rlkey=xaqzwfxcfyb8on1rj0df9yn69&st=eg9qdq02&dl=1";
 
   const openModal = (rule) => {
     setSelectedRule(rule);
