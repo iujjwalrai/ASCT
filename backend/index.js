@@ -5,10 +5,22 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 const fileUpload = require("express-fileupload");
+const allowedOrigins = [
+  "https://asct-frontend.onrender.com",
+  "https://asctup.com",
+  "https://www.asctup.com"
+];
+
 app.use(cors({
-    origin: 'https://asct-frontend.onrender.com', 
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,               // Allows credentials (cookies)
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
 }));
 
 app.use(
