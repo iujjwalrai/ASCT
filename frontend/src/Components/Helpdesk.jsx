@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { ArrowLeft, Send, Headphones, MessageCircle, User, Bot, Zap, Circle, CheckCircle2, Clock, Wifi } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const socket = io("http://localhost:4000", {
+const socket = io(`${process.env.REACT_APP_ASCT_BASE_API_URL}`, {
   withCredentials: true,
 });
 
