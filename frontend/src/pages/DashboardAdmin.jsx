@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 const DashboardAdmin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -128,6 +129,7 @@ const DashboardAdmin = () => {
   return (
     <div className='relative'>
       <div className='absolute bg-red-600 text-white py-5 px-8 rounded-full right-10 top-6 cursor-pointer font-bold text-lg' onClick={logoutHandler}> Logout </div>
+      <div className='absolute bg-red-600 text-white py-5 px-8 rounded-full left-10 top-6 cursor-pointer font-bold text-lg' onClick={()=> navigate('/admin/dashboard/adminHelp')}> Admin - HelpDesk </div>
       <h1 className='text-red-800 text-2xl font-bold py-4 text-center'>Welcome to the Admin Dashboard {adminData.name}</h1>
       <h2 className='text-blue-600 text-xl my-3 font-semibold text-center'>To add a new Sahyog</h2>
       <div className='flex justify-center'>
@@ -167,6 +169,7 @@ const DashboardAdmin = () => {
           <button type='submit' className='bg-blue-600 py-3 text-white rounded-xl hover:bg-blue-900 duration-300'>Mark as Completed</button>
         </form>
       </div>
+      <Outlet />
     </div>
   )
 }

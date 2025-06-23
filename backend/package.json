@@ -29,6 +29,8 @@
     "nth-check": "^2.1.1",
     "path-to-regexp": "^8.2.0",
     "pdfkit": "^0.15.1",
-    "razorpay": "^2.9.5"
+    "razorpay": "^2.9.5",
+    "socket.io": "^4.8.1",
+    "twilio": "^5.7.1"
   }
 }

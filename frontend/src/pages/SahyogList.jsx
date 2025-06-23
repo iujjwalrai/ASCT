@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import AnimatedLoadingSkeleton from '../Components/ui/animated-loading-skeleton';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import Footer from '../Components/Footer';
@@ -8,6 +9,7 @@ const SahyogList = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchSahyogs = async () => {
+    setLoading(true);
     try {
       const response = await toast.promise(
         axios.get(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/advocatesList/getSahyogList`, { withCredentials: true }),
@@ -19,11 +21,10 @@ const SahyogList = () => {
       );
 
       setSahyogs(response.data.sahyogs);
-      setLoading(false);
     } catch (error) {
       toast.error(error.response.data.message);
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -32,11 +33,9 @@ const SahyogList = () => {
 
   return (
     <div>
+      {loading ? (<AnimatedLoadingSkeleton/>): (
       <div className="w-[90vw] mx-auto mt-8">
         <h1 className="text-3xl font-bold text-center text-blue-900 mb-6">Recent Sahyogs</h1>
-        {loading ? (
-          <div className="text-center text-blue-900 font-semibold">Loading Sahyogs...</div>
-        ) : (
           <div className="min-h-[70vh] shadow-2xl rounded-2xl w-full border-t-[4vh] border-blue-950">
             <div className="flex justify-between px-8 py-4 bg-blue-100 rounded-t-2xl hidden md:flex">
               <div className="font-bold text-center w-[20%]">Sahyog Name</div>
@@ -82,8 +81,7 @@ const SahyogList = () => {
               )}
             </div>
           </div>
-        )}
-      </div>
+      </div>)}
       <Footer />
     </div>
   );

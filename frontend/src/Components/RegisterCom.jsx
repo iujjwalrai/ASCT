@@ -1,6 +1,5 @@
-import React from "react";
-import backgroundImage from "../assets/images/logniImage2.jpg";
 import { useForm } from "react-hook-form";
+import LoaderOne from "./ui/LoaderOne";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { upDistrictsAndTehsils } from "../assets/upDistrictsAndTeshils";
@@ -9,14 +8,20 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 const districts = Object.keys(upDistrictsAndTehsils);
+
 const RegisterCom = () => {
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [teshsils, setTehsils] = useState([]);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+
+  // Add useEffect to log loading state changes
 
   const handleDistrictChange = (event) => {
     const dis = event.target.value;
@@ -36,9 +41,12 @@ const RegisterCom = () => {
       toast.error("Password and Confirm Password do not match!");
       return;
     }
+    
     const { confirmPassword, ...formDataWithoutConfirm } = data;
     const formData = { ...formDataWithoutConfirm, Jila: selectedDistrict };
-
+    
+    setLoading(true);
+    
     try {
       const responseFromServer = await toast.promise(
         axios.post(
@@ -56,9 +64,13 @@ const RegisterCom = () => {
           error: <b>Could Not register on ASCT - Up</b>,
         }
       );
+      
       reset();
       setSelectedDistrict("");
-      navigate("/login");
+      
+      // // Navigate after successful registration
+      // navigate("/login");
+      
       toast.success(
         "You are successfully registered on ASCT. Kindly login with your credentials",
         {
@@ -74,12 +86,21 @@ const RegisterCom = () => {
         }
       );
     } catch (er) {
-      toast.error(er.response.data.message);
+      toast.error(er.response?.data?.message || "Registration failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Show loader overlay when loading */}
+      {loading && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+          <LoaderOne />
+        </div>
+      )}
+
       {/* Dynamic Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-600/30 to-purple-600/30 rounded-full blur-3xl animate-pulse"></div>
@@ -144,8 +165,9 @@ const RegisterCom = () => {
                     <input
                       type="text"
                       required
+                      disabled={loading}
                       {...register("name")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                       placeholder="Enter your full name"
                     />
                   </div>
@@ -156,8 +178,9 @@ const RegisterCom = () => {
                     <input
                       type="text"
                       required
+                      disabled={loading}
                       {...register("mobile")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                       placeholder="Enter mobile number"
                     />
                   </div>
@@ -168,8 +191,9 @@ const RegisterCom = () => {
                     <input
                       type="email"
                       required
+                      disabled={loading}
                       {...register("email")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                       placeholder="Enter email address"
                     />
                   </div>
@@ -180,8 +204,9 @@ const RegisterCom = () => {
                     <input
                       type="date"
                       required
+                      disabled={loading}
                       {...register("DOB")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                   </div>
                   <div className="group">
@@ -190,8 +215,9 @@ const RegisterCom = () => {
                     </label>
                     <select
                       required
+                      disabled={loading}
                       {...register("Gender")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <option className="bg-gray-800 text-white" value="">
                         Choose Gender
@@ -212,8 +238,9 @@ const RegisterCom = () => {
                       Blood Group
                     </label>
                     <select
+                      disabled={loading}
                       {...register("BloodGroup")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-blue-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <option className="bg-gray-800 text-white" value="">
                         Choose Blood Group
@@ -262,8 +289,9 @@ const RegisterCom = () => {
                     <input
                       type={showPassword ? "text" : "password"}
                       required
+                      disabled={loading}
                       {...register("password")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-purple-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400/20 pr-10"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-purple-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400/20 pr-10 disabled:opacity-50 disabled:cursor-not-allowed"
                       placeholder="Create a strong password"
                     />
                     <div
@@ -282,8 +310,9 @@ const RegisterCom = () => {
                     <input
                       type={showConfirm ? "text" : "password"}
                       required
+                      disabled={loading}
                       {...register("confirmPassword")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-purple-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400/20 pr-10"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-purple-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400/20 pr-10 disabled:opacity-50 disabled:cursor-not-allowed"
                       placeholder="Confirm your password"
                     />
                     <div
@@ -315,8 +344,9 @@ const RegisterCom = () => {
                     <input
                       type="text"
                       required
+                      disabled={loading}
                       {...register("RegNo")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                       placeholder="Registration number"
                     />
                   </div>
@@ -327,8 +357,9 @@ const RegisterCom = () => {
                     <input
                       type="text"
                       required
+                      disabled={loading}
                       {...register("RegNoYear")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                       placeholder="Registration year"
                     />
                   </div>
@@ -338,8 +369,9 @@ const RegisterCom = () => {
                     </label>
                     <input
                       type="text"
+                      disabled={loading}
                       {...register("COPNo")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                       placeholder="COP number"
                     />
                   </div>
@@ -349,8 +381,9 @@ const RegisterCom = () => {
                     </label>
                     <input
                       type="text"
+                      disabled={loading}
                       {...register("COPNoYear")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                       placeholder="COP year"
                     />
                   </div>
@@ -360,8 +393,9 @@ const RegisterCom = () => {
                     </label>
                     <select
                       required
+                      disabled={loading}
                       {...register("AdPractice")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-green-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-green-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <option className="bg-gray-800 text-white" value="">
                         Choose Practice Level
@@ -407,10 +441,11 @@ const RegisterCom = () => {
                     </label>
                     <select
                       required
+                      disabled={loading}
                       onChange={handleDistrictChange}
                       value={selectedDistrict}
                       name="Jila"
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-orange-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-orange-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <option className="bg-gray-800 text-white" value="">
                         Choose District
@@ -432,8 +467,9 @@ const RegisterCom = () => {
                     </label>
                     <select
                       required
+                      disabled={loading}
                       {...register("Tehsil")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-orange-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-orange-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <option className="bg-gray-800 text-white">
                         Choose Tehsil
@@ -451,8 +487,9 @@ const RegisterCom = () => {
                     </label>
                     <select
                       required
+                      disabled={loading}
                       {...register("HomeDistrict")}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-orange-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:border-orange-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <option className="bg-gray-800 text-white" value="">
                         Choose Home District
@@ -476,8 +513,9 @@ const RegisterCom = () => {
                   <input
                     type="text"
                     required
+                    disabled={loading}
                     {...register("HomeAddress")}
-                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-orange-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
+                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-orange-400 focus:bg-white/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Enter your complete home address"
                   />
                 </div>
@@ -492,14 +530,16 @@ const RegisterCom = () => {
               >
                 <button
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                  disabled={loading}
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  Create Account
+                  {loading ? "Creating Account..." : "Create Account"}
                 </button>
                 <button
                   type="button"
+                  disabled={loading}
                   onClick={() => navigate("/login")}
-                  className="flex-1 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-500/50"
+                  className="flex-1 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-500/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   Already have an account? Login
                 </button>

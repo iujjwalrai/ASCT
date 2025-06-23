@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import LoaderOne from "./ui/LoaderOne";
 import backgroundImage from "../assets/images/logniImage2.jpg";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,12 +11,14 @@ import logo from "../assets/images/Logo_Transparent_BG.png";
 import { IoMdCloseCircle } from "react-icons/io";
 import { motion } from "framer-motion";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 const LoginComp = () => {
   const [isPopUpOpen, setIsPopUpOpen] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
   const [updateDetails, setUpdateDetails] = useState({});
+  const [isLoading, setIsLoading] = useState(false); // Added loading state
   const { register, handleSubmit, reset } = useForm();
   const [isEasterEggOpen, setIsEasterEggOpen] = useState(false);
   const forgetForm = useForm();
@@ -32,6 +35,7 @@ const LoginComp = () => {
   };
 
   const submitHandler = async (data) => {
+    setIsLoading(true); // Start loading
     try {
       const responseFromServer = await toast.promise(
         axios.post(
@@ -65,6 +69,8 @@ const LoginComp = () => {
       }
     } catch (error) {
       toast.error(error.response.data.message);
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   };
 
@@ -204,9 +210,16 @@ const LoginComp = () => {
     navigate("/register");
   };
 
+  // Show LoaderOne when loading
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center p-4 relative overflow-hidden">
       {/* Dynamic Background Elements */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+          <LoaderOne />
+        </div>
+      )}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-600/30 to-purple-600/30 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-purple-600/30 to-pink-600/30 rounded-full blur-3xl animate-pulse delay-1000"></div>

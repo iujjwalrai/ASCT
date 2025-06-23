@@ -8,6 +8,8 @@ import { CiSearch } from "react-icons/ci";
 import { FaLock } from "react-icons/fa";
 import { TfiWrite } from "react-icons/tfi";
 import { IoLogOut } from "react-icons/io5";
+import { SiHelpdesk } from "react-icons/si";
+import { MdOutlineQueryStats } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { logout } from '../redux/slices/authSlice';
 import { removeUser } from "../redux/slices/userSlice";
@@ -64,6 +66,10 @@ const Sidebar = () => {
             <MdOutlineDashboard className="text-3xl" />
             Dashboard
           </Link>
+          <Link to="/advocates/dashboard/helpDesk" className="flex gap-4 items-center">
+            <SiHelpdesk className="text-3xl" />
+            HelpDesk
+          </Link>
           <Link to="/advocates/dashboard/profile" className="flex gap-4 items-center">
             <CgProfile className="text-3xl" />
             Profile
@@ -71,6 +77,10 @@ const Sidebar = () => {
           <Link to="/advocates/dashboard/idcard" className="flex gap-4 items-center">
             <IoIdCard className="text-3xl" />
             Id Card
+          </Link>
+          <Link to="/advocates/dashboard/query" className="flex gap-4 items-center">
+            <MdOutlineQueryStats className="text-3xl" />
+            Your Queries
           </Link>
           <Link to="/advocates/dashboard/runningSahyog" className="flex gap-4 items-center">
             <FaEye className="text-3xl" />

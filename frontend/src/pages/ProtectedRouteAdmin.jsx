@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 
 const ProtectedRouteAdmin = ({ children }) => {
@@ -28,7 +28,7 @@ const ProtectedRouteAdmin = ({ children }) => {
         return <div>Loading...</div>;
     }
 
-    return isAuth ? children : <Navigate to="/adminLogin" />;
+    return isAuth ? <Outlet /> : <Navigate to="/adminLogin" />;
 };
 
 export default ProtectedRouteAdmin;
