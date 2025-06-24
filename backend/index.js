@@ -8,7 +8,7 @@ const socketIO = require("socket.io");
 const allowedOrigins = [
   "https://asct-frontend.onrender.com",
   "https://asctup.com",
-  "https://www.asctup.com"
+  "https://www.asctup.com",
 ];
 const io = socketIO(server, {
   cors: {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const socket = io("http://localhost:4000", {
+const socket = io(`${process.env.REACT_APP_ASCT_BASE_API_URL}`, {
   withCredentials: true,
 });
 

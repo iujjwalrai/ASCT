@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import InteractiveNeuralVortex from "./ui/InteractiveNeuralVortex";
 import io from "socket.io-client";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -80,14 +81,8 @@ const HelpDesk = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-slate-100 relative">
+    <InteractiveNeuralVortex>
       {/* Floating geometric shapes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-cyan-200/30 to-blue-300/30 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/3 right-20 w-48 h-48 bg-gradient-to-br from-emerald-200/20 to-teal-300/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-24 h-24 bg-gradient-to-br from-orange-200/40 to-amber-300/40 rounded-full blur-2xl"></div>
-      </div>
-
       {/* Modern Navigation */}
       <div className="fixed bottom-6 left-6 z-50">
         <button
@@ -100,19 +95,19 @@ const HelpDesk = () => {
       </div>
 
       {/* Main Container */}
-      <div className="flex items-center justify-center min-h-screen p-4 pt-20">
-        <div className="w-full max-w-5xl h-[85vh] relative">
+      <div className="flex items-center justify-center p-4 pt-1">
+        <div className="md:w-[74%] w-[90%] h-[85vh] relative">
           
           {/* Main Chat Interface */}
-          <div className="h-full bg-white/70 backdrop-blur-2xl rounded-3xl border border-white/50 shadow-2xl overflow-hidden flex flex-col">
+          <div className="h-full bg-transparent backdrop-blur-xl rounded-3xl border border-white/50 overflow-hidden flex flex-col">
             
             {/* Modern Header */}
-            <div className="relative p-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white">
+            <div className="relative p-6 bg-gradient-to-r bg-transparent backdrop-blur-md text-white">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   {/* Animated Support Icon */}
                   <div className="relative">
-                    <div className="w-14 h-14 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                    <div className="w-14 h-14 bg-transparent backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300">
                       <Headphones className="w-7 h-7 text-white" />
                     </div>
                     <div className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-400 rounded-full border-2 border-white animate-pulse"></div>
@@ -139,7 +134,7 @@ const HelpDesk = () => {
             </div>
 
             {/* Messages Container */}
-            <div className="flex-1 overflow-y-auto p-6 bg-gradient-to-b from-gray-50/50 to-white/30">
+            <div className="flex-1 overflow-y-auto p-6 bg-gradient-to-b bg-transparent backdrop-blur-xl">
               {messages.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center">
                   {/* Welcome Animation */}
@@ -157,7 +152,7 @@ const HelpDesk = () => {
                   
                   {/* Quick Actions */}
                   <div className="grid grid-cols-2 gap-3 mt-8 w-full max-w-sm">
-                    <div className="p-4 bg-white/60 rounded-2xl border border-gray-200/50 hover:bg-white/80 transition-all cursor-pointer group">
+                    <div className="p-4 bg-transpaernt backdrop-blur-md rounded-2xl border border-gray-200/50 hover:bg-white/80 transition-all cursor-pointer group">
                       <div className="text-center">
                         <div className="w-8 h-8 bg-cyan-100 rounded-xl flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
                           <Zap className="w-4 h-4 text-cyan-600" />
@@ -165,7 +160,7 @@ const HelpDesk = () => {
                         <p className="text-sm font-medium text-gray-700">Quick Help</p>
                       </div>
                     </div>
-                    <div className="p-4 bg-white/60 rounded-2xl border border-gray-200/50 hover:bg-white/80 transition-all cursor-pointer group">
+                    <div className="p-4 bg-transparent backdrop-blur-md rounded-2xl border border-gray-200/50 hover:bg-white/80 transition-all cursor-pointer group">
                       <div className="text-center">
                         <div className="w-8 h-8 bg-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
                           <Wifi className="w-4 h-4 text-emerald-600" />
@@ -218,13 +213,13 @@ const HelpDesk = () => {
             </div>
 
             {/* Modern Input Area */}
-            <div className="p-6 bg-white/80 backdrop-blur-sm border-t border-gray-200/50">
+            <div className="p-6 bg-transparent backdrop-blur-sm border-t border-gray-200/50">
               <div className="flex items-center gap-4">
                 <div className="flex-1 relative">
                   <input
                     type="text"
                     placeholder="Type your message here..."
-                    className="w-full bg-gray-50/80 border border-gray-300/50 rounded-2xl px-6 py-4 pr-16 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 shadow-sm"
+                    className="w-full bg-white border border-gray-300/50 rounded-2xl px-6 py-4 pr-16 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 shadow-sm"
                     value={input}
                     onChange={handleInputChange}
                     onKeyDown={(e) => e.key === "Enter" && sendMessage()}
@@ -280,7 +275,7 @@ const HelpDesk = () => {
           animation: fadeInUp 0.3s ease-out;
         }
       `}</style>
-    </div>
+    </InteractiveNeuralVortex>
   );
 };
 
