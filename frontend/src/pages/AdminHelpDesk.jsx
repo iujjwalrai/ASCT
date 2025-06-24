@@ -46,7 +46,7 @@ const AdminHelpDesk = () => {
   const fetchMessages = async (userId) => {
     try {
       const res = await axios.get(
-        `http://localhost:4000/api/v1/helpdesk/messages/${userId}`,
+        `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/helpdesk/messages/${userId}`,
         {
           withCredentials: true,
         }
