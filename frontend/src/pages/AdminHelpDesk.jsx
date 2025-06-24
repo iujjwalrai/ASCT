@@ -18,7 +18,7 @@ const AdminHelpDesk = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       const res = await axios.get(
-        "http://localhost:4000/api/v1/helpdesk/users"
+        `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/helpdesk/users`
       );
       setUserList(new Set(res.data));
     };

@@ -1,177 +1,411 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Box,
+  Card,
+  CardContent,
+  Grid,
+  TextField,
+  CircularProgress,
+  Container,
+  Stack,
+} from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+
 const DashboardAdmin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [adminData, setAdminData] = useState({})
-  const fetchAdminDetails = async()=>{
-    try{
-      setLoading(true);
-      const responseFromServer = await axios.get(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/profile`,{
-        withCredentials: true
-      })
+  const [adminData, setAdminData] = useState({});
 
-      const adminjankaari = responseFromServer.data.admin;
-      setAdminData(adminjankaari);
+  const fetchAdminDetails = async () => {
+    try {
+      setLoading(true);
+      const responseFromServer = await axios.get(
+        `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/profile`,
+        { withCredentials: true }
+      );
+      setAdminData(responseFromServer.data.admin);
+      setLoading(false);
+    } catch (er) {
       setLoading(false);
     }
-    catch(er){
-      setLoading(false);
-    }
-  }
+  };
 
   const sahyogForm = useForm();
-  const vyawasthaForm= useForm();
+  const vyawasthaForm = useForm();
   const vyawasthaComp = useForm();
   const sahyogComp = useForm();
-  const sahyogHandler = async(data)=>{
-    try{
-      const sahyogResponse = toast.promise(axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/createSahyog`, data, {
-        headers: {
-          "Content-Type": 'application/json'
-        },
-        withCredentials: true
-      }), {
-        loading: "Creating Sahyog",
-        success: <b>Sahyog Created Successfully !!</b>,
-        error: <b>Error in Creating the sahyog</b>
-      })
+
+  const sahyogHandler = async (data) => {
+    try {
+      await toast.promise(
+        axios.post(
+          `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/createSahyog`,
+          data,
+          {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+          }
+        ),
+        {
+          loading: 'Creating Sahyog',
+          success: <b>Sahyog Created Successfully!</b>,
+          error: <b>Error in Creating the Sahyog</b>,
+        }
+      );
       sahyogForm.reset();
+    } catch (e) {
+      toast.error('Something went wrong');
     }
-    catch(e){
-      toast.error("Something went wrong")
-    }
-  }
+  };
 
-  const vyawasthaHandler = async(data)=>{
-    try{
-      const vyawasthaResponse = toast.promise(axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/createVyawastha`, data, {
-        headers: {
-          "Content-Type": 'application/json'
-        },
-        withCredentials: true
-      }), {
-        loading: "Creating Vyawastha",
-        success: <b>Vyawastha Created Successfully !!</b>,
-        error: <b>Error in Creating the Vyawastha</b>
-      })
-      vyawasthaForm. reset();
+  const vyawasthaHandler = async (data) => {
+    try {
+      await toast.promise(
+        axios.post(
+          `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/createVyawastha`,
+          data,
+          {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+          }
+        ),
+        {
+          loading: 'Creating Vyawastha',
+          success: <b>Vyawastha Created Successfully!</b>,
+          error: <b>Error in Creating the Vyawastha</b>,
+        }
+      );
+      vyawasthaForm.reset();
+    } catch (e) {
+      toast.error('Something went wrong');
     }
-    catch(e){
-      toast.error("Something went wrong")
-    }
-  }
+  };
 
-  const handleSahyogComp = async(data)=>{
-    try{
-      const vapas = await toast.promise(axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/sahyogComp`, data, {
-        headers:{
-          "Content-Type": "application/json"
-        },
-        withCredentials: true
-      }), {
-        loading: "Marking as complete",
-        success: <b>Marked as complete</b>,
-        error: <b>Some error occurred</b>
-      })
+  const handleSahyogComp = async (data) => {
+    try {
+      await toast.promise(
+        axios.post(
+          `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/sahyogComp`,
+          data,
+          {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+          }
+        ),
+        {
+          loading: 'Marking as complete',
+          success: <b>Marked as complete</b>,
+          error: <b>Some error occurred</b>,
+        }
+      );
+    } catch (gal) {
+      toast.error('Please try again later');
     }
-    catch(gal){
-      toast.error("Please try again later");
-    }
-  }
+  };
 
-  const handleVyawasthaComp = async(data)=>{
-    try{
-      const vapas = await toast.promise(axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/vyawasthaComp`, data, {
-        headers:{
-          "Content-Type": "application/json"
-        },
-        withCredentials: true
-      }), {
-        loading: "Marking as complete",
-        success: <b>Marked as complete</b>,
-        error: <b>Some error occurred</b>
-      })
+  const handleVyawasthaComp = async (data) => {
+    try {
+      await toast.promise(
+        axios.post(
+          `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/vyawasthaComp`,
+          data,
+          {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+          }
+        ),
+        {
+          loading: 'Marking as complete',
+          success: <b>Marked as complete</b>,
+          error: <b>Some error occurred</b>,
+        }
+      );
+    } catch (gal) {
+      toast.error('Please try again later');
     }
-    catch(gal){
-      toast.error("Please try again later");
-    }
-  }
+  };
 
-
-  const logoutHandler = async()=>{
-    try{
-      const vap = await axios.post(`${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/logout`, null, {withCredentials: true});
-      navigate("/");
-      toast.success("Logged out successfully");
+  const logoutHandler = async () => {
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/adminPortal/admin/logout`,
+        null,
+        { withCredentials: true }
+      );
+      navigate('/');
+      toast.success('Logged out successfully');
+    } catch (e) {
+      navigate('/');
+      toast.success('Logged out successfully');
     }
-    catch(e){
-      navigate("/");
-      toast.success("Logged out successfully");
-    }
-    navigate("/");
-    toast.success("Logged out successfully")
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchAdminDetails();
+    // eslint-disable-next-line
   }, []);
 
-  if(loading){
-    return(
-      <div className='flex justify-center items-center min-h-[70vh] text-blue-800 text-3xl'>Loading . . . .</div>
-    )
+  if (loading) {
+    return (
+      <Box
+        minHeight="70vh"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <CircularProgress color="primary" size={60} />
+      </Box>
+    );
   }
-  return (
-    <div className='relative'>
-      <div className='absolute bg-red-600 text-white py-5 px-8 rounded-full right-10 top-6 cursor-pointer font-bold text-lg' onClick={logoutHandler}> Logout </div>
-      <div className='absolute bg-red-600 text-white py-5 px-8 rounded-full left-10 top-6 cursor-pointer font-bold text-lg' onClick={()=> navigate('/admin/dashboard/adminHelp')}> Admin - HelpDesk </div>
-      <h1 className='text-red-800 text-2xl font-bold py-4 text-center'>Welcome to the Admin Dashboard {adminData.name}</h1>
-      <h2 className='text-blue-600 text-xl my-3 font-semibold text-center'>To add a new Sahyog</h2>
-      <div className='flex justify-center'>
-        <form onSubmit={sahyogForm.handleSubmit(sahyogHandler)} className='min-w-[700px] flex flex-col py-10 px-10 bg-black bg-opacity-25 gap-6 rounded-3xl'>
-          <input type='text' placeholder='Enter the Object Id of the User whose Sashyog is to be Collected' {...sahyogForm.register('user')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <input type='text' placeholder='Enter the name of the Sahyog' {...sahyogForm.register('name')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <input type='text' placeholder='Enter the description of the Sahyog' {...sahyogForm.register('description')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <input type='text' placeholder='Enter the amount of the Sahyog to be collected' {...sahyogForm.register('amount')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <input type='text' placeholder='Enter the nominee Account Holder name' {...sahyogForm.register('nomineeName')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <input type='text' placeholder='Enter the Account no. 1 of the nominee' {...sahyogForm.register('nomineeAccount1No')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <input type='text' placeholder='Enter the Account 1 IFSC of the nominee' {...sahyogForm.register('nomineeAccount1ifsc')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <input type='text' placeholder='Enter the Account no. 2 of the nominee' {...sahyogForm.register('nomineeAccount2No')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <input type='text' placeholder='Enter the Account 2 IFSC of the nominee' {...sahyogForm.register('nomineeAccount2ifsc')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <button type='submit' className='bg-blue-600 py-3 text-white rounded-xl hover:bg-blue-900 duration-300'>Create Sahyog</button>
-        </form>
-      </div>
-      <h2 className='text-blue-600 text-xl my-3 font-semibold text-center'>To add a new Vyawastha Shulk</h2>
-      <div className='flex justify-center'>
-        <form onSubmit={vyawasthaForm.handleSubmit(vyawasthaHandler)} className='min-w-[700px] flex flex-col py-10 px-10 bg-black bg-opacity-25 gap-6 rounded-3xl'>
-          <input type='text' placeholder='Enter the name of the Vyawastha' {...vyawasthaForm.register('name')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <input type='text' placeholder='Enter the description of the Vyawastha' {...vyawasthaForm.register('description')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <input type='text' placeholder='Enter the amount of the Vyawastha to be collected' {...vyawasthaForm.register('amount')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <button type='submit' className='bg-blue-600 py-3 text-white rounded-xl hover:bg-blue-900 duration-300'>Create Vyawastha</button>
-        </form>
-      </div>
-      <h2 className='text-blue-600 text-xl my-3 font-semibold text-center'>To mark a Sahyog as completed</h2>
-      <div className='flex justify-center'>
-        <form onSubmit={sahyogComp.handleSubmit(handleSahyogComp)} className='min-w-[700px] flex flex-col py-10 px-10 bg-black bg-opacity-25 gap-6 rounded-3xl'>
-          <input type='text' placeholder='Enter the Object Id of the Sahyog' {...sahyogComp.register('id')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <button type='submit' className='bg-blue-600 py-3 text-white rounded-xl hover:bg-blue-900 duration-300'>Mark as Completed</button>
-        </form>
-      </div>
-      <h2 className='text-blue-600 text-xl my-3 font-semibold text-center'>To mark a Vyawastha as completed</h2>
-      <div className='flex justify-center'>
-        <form onSubmit={vyawasthaComp.handleSubmit(handleVyawasthaComp)} className='min-w-[700px] flex flex-col py-10 px-10 bg-black bg-opacity-25 gap-6 rounded-3xl'>
-          <input type='text' placeholder='Enter the Object Id of the Vyawastha' {...vyawasthaComp.register('id')} className='px-3 py-3 rounded-xl placeholder:text-black'></input>
-          <button type='submit' className='bg-blue-600 py-3 text-white rounded-xl hover:bg-blue-900 duration-300'>Mark as Completed</button>
-        </form>
-      </div>
-      <Outlet />
-    </div>
-  )
-}
 
-export default DashboardAdmin
+  return (
+    <Box sx={{ background: '#f4f6f8', minHeight: '100vh' }}>
+      {/* AppBar */}
+      <AppBar position="static" color="primary" elevation={2}>
+        <Toolbar sx={{ justifyContent: 'space-between' }}>
+          <Button
+            color="inherit"
+            startIcon={<HelpOutlineIcon />}
+            onClick={() => navigate('/admin/dashboard/adminHelp')}
+          >
+            Admin HelpDesk
+          </Button>
+          <Typography variant="h6" component="div" sx={{ fontWeight: 600 }}>
+            Admin Dashboard
+          </Typography>
+          <Button
+            color="inherit"
+            endIcon={<LogoutIcon />}
+            onClick={logoutHandler}
+          >
+            Logout
+          </Button>
+        </Toolbar>
+      </AppBar>
+
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        <Typography
+          variant="h4"
+          align="center"
+          color="primary"
+          fontWeight={700}
+          gutterBottom
+        >
+          Welcome, {adminData.name}
+        </Typography>
+
+        <Grid container spacing={4}>
+          {/* Sahyog Form */}
+          <Grid item xs={12}>
+            <Card elevation={3}>
+              <CardContent>
+                <Typography variant="h6" color="primary" gutterBottom>
+                  Add New Sahyog
+                </Typography>
+                <Box
+                  component="form"
+                  onSubmit={sahyogForm.handleSubmit(sahyogHandler)}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <Stack spacing={2}>
+                    <TextField
+                      label="User Object ID"
+                      variant="outlined"
+                      fullWidth
+                      {...sahyogForm.register('user')}
+                    />
+                    <TextField
+                      label="Sahyog Name"
+                      variant="outlined"
+                      fullWidth
+                      {...sahyogForm.register('name')}
+                    />
+                    <TextField
+                      label="Description"
+                      variant="outlined"
+                      fullWidth
+                      {...sahyogForm.register('description')}
+                    />
+                    <TextField
+                      label="Amount"
+                      variant="outlined"
+                      fullWidth
+                      {...sahyogForm.register('amount')}
+                    />
+                    <TextField
+                      label="Nominee Name"
+                      variant="outlined"
+                      fullWidth
+                      {...sahyogForm.register('nomineeName')}
+                    />
+                    <TextField
+                      label="Nominee Account No. 1"
+                      variant="outlined"
+                      fullWidth
+                      {...sahyogForm.register('nomineeAccount1No')}
+                    />
+                    <TextField
+                      label="Nominee Account 1 IFSC"
+                      variant="outlined"
+                      fullWidth
+                      {...sahyogForm.register('nomineeAccount1ifsc')}
+                    />
+                    <TextField
+                      label="Nominee Account No. 2"
+                      variant="outlined"
+                      fullWidth
+                      {...sahyogForm.register('nomineeAccount2No')}
+                    />
+                    <TextField
+                      label="Nominee Account 2 IFSC"
+                      variant="outlined"
+                      fullWidth
+                      {...sahyogForm.register('nomineeAccount2ifsc')}
+                    />
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                    >
+                      Create Sahyog
+                    </Button>
+                  </Stack>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          {/* Vyawastha Form */}
+          <Grid item xs={12}>
+            <Card elevation={3}>
+              <CardContent>
+                <Typography variant="h6" color="primary" gutterBottom>
+                  Add New Vyawastha Shulk
+                </Typography>
+                <Box
+                  component="form"
+                  onSubmit={vyawasthaForm.handleSubmit(vyawasthaHandler)}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <Stack spacing={2}>
+                    <TextField
+                      label="Vyawastha Name"
+                      variant="outlined"
+                      fullWidth
+                      {...vyawasthaForm.register('name')}
+                    />
+                    <TextField
+                      label="Description"
+                      variant="outlined"
+                      fullWidth
+                      {...vyawasthaForm.register('description')}
+                    />
+                    <TextField
+                      label="Amount"
+                      variant="outlined"
+                      fullWidth
+                      {...vyawasthaForm.register('amount')}
+                    />
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                    >
+                      Create Vyawastha
+                    </Button>
+                  </Stack>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          {/* Mark Sahyog as Completed */}
+          <Grid item xs={12} md={6}>
+            <Card elevation={3}>
+              <CardContent>
+                <Typography variant="h6" color="primary" gutterBottom>
+                  Mark Sahyog as Completed
+                </Typography>
+                <Box
+                  component="form"
+                  onSubmit={sahyogComp.handleSubmit(handleSahyogComp)}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <Stack spacing={2}>
+                    <TextField
+                      label="Sahyog Object ID"
+                      variant="outlined"
+                      fullWidth
+                      {...sahyogComp.register('id')}
+                    />
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="success"
+                      size="large"
+                    >
+                      Mark as Completed
+                    </Button>
+                  </Stack>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          {/* Mark Vyawastha as Completed */}
+          <Grid item xs={12} md={6}>
+            <Card elevation={3}>
+              <CardContent>
+                <Typography variant="h6" color="primary" gutterBottom>
+                  Mark Vyawastha as Completed
+                </Typography>
+                <Box
+                  component="form"
+                  onSubmit={vyawasthaComp.handleSubmit(handleVyawasthaComp)}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <Stack spacing={2}>
+                    <TextField
+                      label="Vyawastha Object ID"
+                      variant="outlined"
+                      fullWidth
+                      {...vyawasthaComp.register('id')}
+                    />
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="success"
+                      size="large"
+                    >
+                      Mark as Completed
+                    </Button>
+                  </Stack>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+        <Box mt={4}>
+          <Outlet />
+        </Box>
+      </Container>
+    </Box>
+  );
+};
+
+export default DashboardAdmin;
