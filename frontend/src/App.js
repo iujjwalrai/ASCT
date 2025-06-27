@@ -32,6 +32,7 @@ import Footer from "./Components/Footer";
 import Helpdesk from "./Components/Helpdesk";
 import AdminHelpDesk from "./pages/AdminHelpDesk";
 import QueryManagement from "./Components/QueryManagement";
+import ASCTChatbot from "./pages/ASCTChatbot";
 const App = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, loginTime } = useSelector((state) => state.auth);
@@ -66,6 +67,7 @@ const App = () => {
           <Route path="/sahyogList" element={<SahyogList />}></Route>
           <Route path="/vyawasthaList" element={<VyawasthaList />}></Route>
           <Route path="/niyamawali" element={<Niyamawali />}></Route>
+          <Route path="/chatbot" element={<ASCTChatbot/>}></Route>
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>

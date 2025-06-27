@@ -6,6 +6,7 @@ import Teams from "../Components/Teams";
 import { Link } from "react-router-dom";
 import Footer from "../Components/Footer";
 import FoundersCarousel from "../Components/FoundersCarousel";
+import ChatbotWidget from "../Components/ChatbotWidget";
 const Home = () => {
   return (
     <div>
@@ -113,6 +114,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <ChatbotWidget/>
       <Footer />
     </div>
   );

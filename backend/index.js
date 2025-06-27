@@ -8,7 +8,7 @@ const socketIO = require("socket.io");
 const allowedOrigins = [
   "https://asct-frontend.onrender.com",
   "https://asctup.com",
-  "https://www.asctup.com"
+  "https://www.asctup.com",
 ];
 const io = socketIO(server, {
   cors: {
@@ -58,6 +58,7 @@ const advocatesListRoute = require("./routes/advocatesList");
 const paymentRoute = require("./routes/payment");
 const helpdeskRoute = require("./routes/helpdesk");
 const queryRoutes = require('./routes/query')
+const chatbotRoute = require("./routes/chatbot");
 dbConnect();
 app.use("/api/v1/contact", contactUsRoute);
 app.use("/api/v1/registerPortal", registerRoute);
@@ -66,7 +67,8 @@ app.use("/api/v1/advocatesList", advocatesListRoute);
 app.use("/api/v1/adminPortal", adminRoute);
 app.use("/api/v1/paymentPortal", paymentRoute);
 app.use("/api/v1/helpdesk",helpdeskRoute);
-app.use("/api/v1/query",queryRoutes)
+app.use("/api/v1/query",queryRoutes);
+app.use("/api/v1/chatbot",chatbotRoute);
 app.get("/", (req,res)=>{
     res.status(200).json({
         message: "Welcome to the ASCT-UP API"
