@@ -35,7 +35,7 @@ const AllSahyog = () => {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-blue-500 via-purple-400 to-white gap-6 relative min-h-screen">
+    <div className="flex flex-col md:flex-row bg-gradient-to-tl from-slate-50 via-blue-50 to-indigo-100 gap-6 relative min-h-screen">
       <Sidebar />
       <div className="mt-5 flex-1">
         {loading ? (

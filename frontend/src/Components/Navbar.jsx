@@ -15,7 +15,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
           ? 'bg-black/70 backdrop-blur-md shadow-lg mt-2 mx-2 rounded-3xl'
           : 'bg-black'
