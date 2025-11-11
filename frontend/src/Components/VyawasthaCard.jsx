@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
 
 const VyawasthaCard = ({ vyawastha }) => {
   const { name, description, amount, isCompleted, _id } = vyawastha;
@@ -14,10 +12,7 @@ const VyawasthaCard = ({ vyawastha }) => {
     transactionId: null,
   });
 
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [uploadStatus, setUploadStatus] = useState("No file uploaded");
-  const [isUploading, setIsUploading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     const fetchDonationStatus = async () => {
@@ -41,56 +36,107 @@ const VyawasthaCard = ({ vyawastha }) => {
     fetchDonationStatus();
   }, [advo._id, _id]);
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-      setUploadStatus(`Selected file: ${file.name}`);
-    }
-  };
-
-  const handleUpload = async () => {
-    if (!selectedFile) {
-      setUploadStatus("No file selected");
+  const handlePayment = async () => {
+    if (!advo || !advo._id) {
+      toast.error("Please login to make a payment");
       return;
     }
 
-    setIsUploading(true);
-    setUploadStatus("Uploading...");
-    setUploadProgress(0);
-
-    const formData = new FormData();
-    formData.append("file", selectedFile);
-    formData.append("userId", advo._id);
-    formData.append("vyawasthaId", _id);
-    formData.append("amount", amount);
+    setIsProcessing(true);
 
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/LoginPortal/advocate/uploadVyawasthaPayment`,
-        formData,
+      // Create order
+      const orderResponse = await axios.post(
+        `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/paymentPortal/paymentCapture/createVyawasthaOrder`,
+        {
+          amount: amount,
+          vyawasthaId: _id,
+          userId: advo._id,
+        },
         {
           withCredentials: true,
-          onUploadProgress: (progressEvent) => {
-            const progress = Math.round(
-              (progressEvent.loaded / progressEvent.total) * 100
-            );
-            setUploadProgress(progress);
-          },
         }
       );
 
-      setUploadStatus("Upload successful!");
-      toast.success("Receipt uploaded successfully!");
-      setDonationStatus({
-        paid: true,
-        transactionId: response.data.transactionId,
-      });
+      if (!orderResponse.data.success) {
+        toast.error("Failed to create payment order");
+        setIsProcessing(false);
+        return;
+      }
+
+      const order = orderResponse.data.order;
+      const razorpayKey = orderResponse.data.key;
+
+      if (!razorpayKey) {
+        toast.error("Payment configuration missing. Please contact support.");
+        setIsProcessing(false);
+        return;
+      }
+
+      // Initialize Razorpay checkout
+      const options = {
+        key: razorpayKey,
+        amount: order.amount,
+        currency: order.currency,
+        name: "Advocate Self Care Samiti",
+        description: `Payment for ${name}`,
+        order_id: order.id,
+        handler: async function (response) {
+          try {
+            // Verify payment
+            const verifyResponse = await axios.post(
+              `${process.env.REACT_APP_ASCT_BASE_API_URL}/api/v1/paymentPortal/paymentCapture/verifyVyawastha`,
+              {
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                vyawasthaId: _id,
+                userId: advo._id,
+                amount: amount,
+              },
+              {
+                withCredentials: true,
+              }
+            );
+
+            if (verifyResponse.data.success) {
+              toast.success("Payment successful!");
+              setDonationStatus({
+                paid: true,
+                transactionId: verifyResponse.data.transactionId,
+              });
+            } else {
+              toast.error("Payment verification failed");
+            }
+          } catch (error) {
+            console.error("Payment verification error:", error);
+            toast.error("Payment verification failed");
+          } finally {
+            setIsProcessing(false);
+          }
+        },
+        prefill: {
+          name: advo.name || "",
+          email: advo.email || "",
+          contact: advo.mobile || "",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+        modal: {
+          ondismiss: function () {
+            setIsProcessing(false);
+            toast.error("Payment cancelled");
+          },
+        },
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
     } catch (error) {
-      setUploadStatus("Upload failed. Please try again.");
-      toast.error("Upload failed...");
-    } finally {
-      setIsUploading(false);
+      console.error("Payment error:", error);
+      toast.error("Failed to initiate payment");
+      setIsProcessing(false);
     }
   };
 
@@ -126,37 +172,6 @@ const VyawasthaCard = ({ vyawastha }) => {
         </div>
       </div>
 
-      {/* Bank Details Card */}
-      <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl p-6 mb-6 border border-gray-200">
-        <div className="flex items-center mb-4">
-          <svg className="w-6 h-6 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v2H4V6zm0 4h12v4H4v-4z" clipRule="evenodd" />
-          </svg>
-          <h3 className="font-bold text-gray-800 text-lg">Bank Details</h3>
-        </div>
-        
-        <div className="space-y-3">
-          <div className="flex flex-col sm:flex-row sm:justify-between">
-            <span className="text-gray-600 font-medium">Account Holder:</span>
-            <span className="font-semibold text-gray-800">Advocate Self Care Samiti</span>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row sm:justify-between">
-            <span className="text-gray-600 font-medium">Account No:</span>
-            <span className="font-mono font-semibold text-gray-800 bg-white px-3 py-1 rounded-lg border">42721613653</span>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row sm:justify-between">
-            <span className="text-gray-600 font-medium">IFSC Code:</span>
-            <span className="font-mono font-semibold text-gray-800 bg-white px-3 py-1 rounded-lg border">SBIN0006211</span>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row sm:justify-between">
-            <span className="text-gray-600 font-medium">Branch:</span>
-            <span className="font-semibold text-gray-800">COURT AREA, BASTI, UP 272001</span>
-          </div>
-        </div>
-      </div>
 
       {/* Donation Status or Upload Section */}
       {donationStatus.paid ? (
@@ -177,85 +192,35 @@ const VyawasthaCard = ({ vyawastha }) => {
         !isCompleted && (
           <div className="space-y-4">
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Upload Payment Receipt</h3>
-              <p className="text-gray-600 text-sm mb-4">Please upload your payment receipt to complete the donation</p>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Make Payment</h3>
+              <p className="text-gray-600 text-sm mb-4">Complete your donation using secure Razorpay payment</p>
             </div>
             
             <button
-              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center space-x-3"
-              onClick={() => document.getElementById(`file-input-${_id}`).click()}
+              className={`w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center space-x-3 ${
+                isProcessing ? 'opacity-75 cursor-not-allowed' : ''
+              }`}
+              onClick={handlePayment}
+              disabled={isProcessing}
             >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
-              </svg>
-              <span>Choose Receipt File</span>
+              {isProcessing ? (
+                <>
+                  <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span>Processing...</span>
+                </>
+              ) : (
+                <>
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+                    <path fillRule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clipRule="evenodd" />
+                  </svg>
+                  <span>Pay ₹{amount}</span>
+                </>
+              )}
             </button>
-            
-            <input
-              id={`file-input-${_id}`}
-              type="file"
-              accept="image/*,application/pdf"
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-            />
-            
-            {selectedFile && (
-              <div className="bg-gray-50 rounded-xl p-6 space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="flex-shrink-0">
-                    <svg className="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">{uploadStatus}</p>
-                  </div>
-                </div>
-                
-                {isUploading && (
-                  <div className="w-24 h-24 mx-auto">
-                    <CircularProgressbar
-                      value={uploadProgress}
-                      text={`${uploadProgress}%`}
-                      styles={buildStyles({
-                        textSize: "16px",
-                        pathColor: `rgba(59, 130, 246, ${uploadProgress / 100})`,
-                        textColor: "#1f2937",
-                        trailColor: "#e5e7eb",
-                        pathTransitionDuration: 0.5,
-                      })}
-                    />
-                  </div>
-                )}
-                
-                <button
-                  className={`w-full font-semibold py-3 px-6 rounded-xl transition-all duration-200 ${
-                    isUploading
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 transform hover:scale-105 shadow-lg hover:shadow-xl'
-                  } text-white flex items-center justify-center space-x-2`}
-                  onClick={handleUpload}
-                  disabled={isUploading}
-                >
-                  {isUploading ? (
-                    <>
-                      <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      <span>Uploading...</span>
-                    </>
-                  ) : (
-                    <>
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-                      </svg>
-                      <span>Upload Receipt</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            )}
           </div>
         )
       )}
